@@ -4,4 +4,4 @@ class Defender:
         self.speed = speed
 
     def get_speed(self):
-        pass
+        return self.speed

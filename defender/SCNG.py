@@ -1,10 +1,12 @@
-class SCNG:
+from defender.Defender import Defender
+
+class SCNG(Defender):
     def __init__(self, speed, angular_velocity):
-        super.__init__(speed)
+        super().__init__(speed)
         self.angular_velocity = angular_velocity
 
     def get_speed(self):
-        pass
+        return self.speed
 
     def get_angular_velocity(self):
-        pass
+        return self.angular_velocity

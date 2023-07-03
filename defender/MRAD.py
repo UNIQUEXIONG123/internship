@@ -1,10 +1,12 @@
-class MRAD:
+from defender.Defender import Defender
+
+class MRAD(Defender):
     def __init__(self, speed, delay):
-        super.__init__(speed)
+        super().__init__(speed)
         self.delay = delay
 
     def get_speed(self):
-        pass
+        return self.speed
 
     def get_delay(self):
-        pass
+        return self.delay
