@@ -6,7 +6,7 @@ from defender.SCNG import SCNG
 from defender.SRAD import SRAD
 
 
-class DefenderFactory:
+class DefenderGenerator:
     """
     这里的工厂相当于某一艘舰船
     导弹有初速度并且保持不变，同时施加延迟
@@ -95,14 +95,14 @@ class DefenderFactory:
                       ", angular_velocity: " + str(defender.get_angular_velocity()))
 
 
-# 使用示例
-mrad_animation = 10
-srad_animation = 15
-scng_animation = 30
-mc_animation = 20
-
-factory = DefenderFactory(mrad_animation, srad_animation, scng_animation, mc_animation)
-factory.generate()
-factory.allocate_defenders()
-factory.print_list()
-factory.print_defenders()
+# # 使用示例
+# mrad_animation = 10
+# srad_animation = 15
+# scng_animation = 30
+# mc_animation = 20
+#
+# factory = DefenderGenerator(mrad_animation, srad_animation, scng_animation, mc_animation)
+# factory.generate()
+# factory.allocate_defenders()
+# factory.print_list()
+# factory.print_defenders()

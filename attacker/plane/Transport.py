@@ -1,7 +1,7 @@
 from attacker.AttackerPlane import AttackerPlane
 
 
-class Airliner(AttackerPlane):
+class Transport(AttackerPlane):
 
     def get_distance(self):
         pass
