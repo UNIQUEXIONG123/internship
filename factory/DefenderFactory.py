@@ -6,6 +6,11 @@ from defender.SRAD import SRAD
 
 
 class DefenderFactory:
+    """
+    这里的工厂相当于某一艘舰船
+    导弹有初速度并且保持不变，同时施加延迟
+    舰炮有初速度，同时施加角速度的影响
+    """
     def __init__(self, mrad_animation, srad_animation, scng_animation):
         # 分配队列
         self.allocate_list = []
@@ -22,6 +27,9 @@ class DefenderFactory:
     def generate(self):
         """
         生成防御器材
+        其中speed：m/s
+            delay: s
+            angular_velocity:rad/s
         """
         # 生成MRAD
         for _ in range(self.animation_map["mrad_animation"]):
@@ -40,7 +48,7 @@ class DefenderFactory:
         # 生成SCNG
         for _ in range(self.animation_map["scng_animation"]):
             speed = random.gauss(500, 100)  # 使用高斯分布生成速度
-            angular_velocity = random.gauss(0.5, 0.1)  # 使用高斯分布生成角速度
+            angular_velocity = random.gauss(0.4, 0.1)  # 使用高斯分布生成角速度
             scng = SCNG(speed, angular_velocity)  # 创建SCNG对象
             self.allocate_list.append(scng)  # 将SCNG对象添加到分配队列中
 
@@ -50,13 +58,23 @@ class DefenderFactory:
         """
         self.launch_list.extend(self.allocate_list)  # 将分配队列中的防御器材添加到发射队列中
         self.allocate_list = []  # 清空分配队列
-
+    def print_list(self):
+        """
+        打印出分配列表
+        :return:
+        """
+        for defender in self.launch_list:
+            print(defender.__class__)
     def print_defenders(self):
         """
         打印发射队列中的防御器材信息
         """
         for defender in self.launch_list:
-            print(defender)
+            if defender.get_speed()>=600:
+                print("speed: " + str(defender.get_speed()) + ", noise: " + str(defender.get_noise()))
+            else:
+                print("speed: " + str(defender.get_speed()) + ", angular_velocity: " + str(defender.get_noise()))
+
 
 # 使用示例
 mrad_animation = 10
@@ -66,4 +84,5 @@ scng_animation = 3
 factory = DefenderFactory(mrad_animation, srad_animation, scng_animation)
 factory.generate()
 factory.allocate_defenders()
+factory.print_list()
 factory.print_defenders()
