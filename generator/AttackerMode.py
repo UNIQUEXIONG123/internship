@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from attacker.plane import Bomber, Fighter, Transport, Helicopter
+
 
 class AbstractAttackerMode(ABC):
     def __init__(self):
@@ -88,7 +88,7 @@ class AttackerMode7(AbstractAttackerMode):
 
 class AttackerMode8(AbstractAttackerMode):
     def generate(self):
-        pass
+        print("攻击模式8")
 
     def __init__(self):
         super().__init__()
@@ -97,7 +97,7 @@ class AttackerMode8(AbstractAttackerMode):
 
 class AttackerMode9(AbstractAttackerMode):
     def generate(self):
-        pass
+        print("攻击模式9")
 
     def __init__(self):
         super().__init__()

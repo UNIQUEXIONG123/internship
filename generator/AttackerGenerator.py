@@ -1,6 +1,6 @@
 from typing import Set
 from attacker.Attacker import Attacker
-import generator.AttackerMode as am
+from generator import AttackerMode
 
 
 class AttackerGenerator:
@@ -19,7 +19,7 @@ class AttackerGenerator:
     # 生成场景，生成的所有attacker实体将会放在set当中，同时通知defender将新的进攻实体放在队列中
     def generate(self):
         for mode in self.attacker_mode_list:
-            generator = am.AttackerModeDic[mode]()
+            generator = AttackerMode.AttackerModeDic[mode]()
             generator.generate()
 
     # 当生产出来一个敌方目标，就将这个敌方目标放到prepared_list当中
