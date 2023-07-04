@@ -30,21 +30,21 @@ class AttackerFactory:
     def generate(self):
         if self.attacker_mode == AttackerFactory.AttackerMode.MODE_1:
             pass
-        elif self.attacker_mode == AttackerFactory.AttackerMode.MODE_2:
+        if self.attacker_mode == AttackerFactory.AttackerMode.MODE_2:
             pass
-        elif self.attacker_mode == AttackerFactory.AttackerMode.MODE_3:
+        if self.attacker_mode == AttackerFactory.AttackerMode.MODE_3:
             pass
-        elif self.attacker_mode == AttackerFactory.AttackerMode.MODE_4:
+        if self.attacker_mode == AttackerFactory.AttackerMode.MODE_4:
             pass
-        elif self.attacker_mode == AttackerFactory.AttackerMode.MODE_5:
+        if self.attacker_mode == AttackerFactory.AttackerMode.MODE_5:
             pass
-        elif self.attacker_mode == AttackerFactory.AttackerMode.MODE_6:
+        if self.attacker_mode == AttackerFactory.AttackerMode.MODE_6:
             pass
-        elif self.attacker_mode == AttackerFactory.AttackerMode.MODE_7:
+        if self.attacker_mode == AttackerFactory.AttackerMode.MODE_7:
             pass
-        elif self.attacker_mode == AttackerFactory.AttackerMode.MODE_8:
+        if self.attacker_mode == AttackerFactory.AttackerMode.MODE_8:
             pass
-        elif self.attacker_mode == AttackerFactory.AttackerMode.MODE_9:
+        if self.attacker_mode == AttackerFactory.AttackerMode.MODE_9:
             pass
         else:
             pass
