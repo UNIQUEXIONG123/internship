@@ -1,9 +1,8 @@
-# "SCNG": 小口径舰炮(Small caliber naval gun)
 from defender.Defender import Defender
 
 
-class SCNG(Defender):
-
+class MC(Defender):
+    # 导弹车认为他发射的时候的初速度为0
     def __init__(self, speed, delay, angular_velocity):
         super().__init__(speed, delay)
         self.angular_velocity = angular_velocity

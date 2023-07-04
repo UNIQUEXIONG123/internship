@@ -7,4 +7,5 @@ Defender是父类
 "MRAD": 中距离防空导弹(Medium-range air defense missile)
 "SCNG": 小口径舰炮(Small caliber naval gun)
 "SRAD"： 近距离防空导弹(Small-range air defense missile)
+"MC": 导弹车(missile car)
 """
