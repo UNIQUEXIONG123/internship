@@ -1,9 +1,10 @@
 class Defender:
     # 防御武器飞行的速度
-    def __init__(self, speed,noise):
+    # 防御武器的延迟时间
+    def __init__(self, speed,delay):
         self.speed = speed
-        self.noise = noise
+        self.delay = delay
     def get_speed(self):
         return self.speed
-    def get_noise(self):
-        return self.noise
+    def get_delay(self):
+        return self.delay
