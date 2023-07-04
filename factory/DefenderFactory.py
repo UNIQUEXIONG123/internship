@@ -57,6 +57,7 @@ class DefenderFactory:
         """
         self.launch_list.extend(self.allocate_list)  # 将分配队列中的防御器材添加到发射队列中
         self.allocate_list = []  # 清空分配队列
+
     def print_list(self):
         """
         打印出分配列表
@@ -64,6 +65,7 @@ class DefenderFactory:
         """
         for defender in self.launch_list:
             print(defender.__class__)
+
     def print_defenders(self):
         """
         打印发射队列中的防御器材信息
