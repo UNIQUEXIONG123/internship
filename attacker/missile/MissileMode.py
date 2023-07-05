@@ -16,23 +16,58 @@ class MissileModeAbstract(ABC):
     def generate(self):
         pass
 
+    @abstractmethod
+    def get_distance(self):
+        pass
 
-class SubsonicModeAbstract(ABC, MissileModeAbstract):
+    @abstractmethod
+    def get_height(self):
+        pass
+
+    @abstractmethod
+    def get_direction(self):
+        pass
+
+    @abstractmethod
+    def get_speed(self):
+        pass
+
+    @abstractmethod
+    def get_heading(self):
+        pass
+
+
+class SubsonicModeAbstract(MissileModeAbstract, ABC):
     def __init__(self):
         super().__init__()
 
 
-class SupersonicModeAbstract(ABC, MissileModeAbstract):
+class SupersonicModeAbstract(MissileModeAbstract, ABC):
     def __init__(self):
         super().__init__()
 
 
-class HypersonicModeAbstract(ABC, MissileModeAbstract):
+class HypersonicModeAbstract(MissileModeAbstract, ABC):
     def __init__(self):
         super().__init__()
 
 
 class SubsonicMode1(SubsonicModeAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -42,6 +77,21 @@ class SubsonicMode1(SubsonicModeAbstract):
 
 
 class SubsonicMode2(SubsonicModeAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -51,6 +101,21 @@ class SubsonicMode2(SubsonicModeAbstract):
 
 
 class SubsonicMode3(SubsonicModeAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -60,6 +125,21 @@ class SubsonicMode3(SubsonicModeAbstract):
 
 
 class SupersonicMode1(SupersonicModeAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -69,6 +149,21 @@ class SupersonicMode1(SupersonicModeAbstract):
 
 
 class SupersonicMode2(SupersonicModeAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -78,6 +173,21 @@ class SupersonicMode2(SupersonicModeAbstract):
 
 
 class SupersonicMode3(SupersonicModeAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -87,6 +197,21 @@ class SupersonicMode3(SupersonicModeAbstract):
 
 
 class HypersonicMode1(HypersonicModeAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -96,6 +221,21 @@ class HypersonicMode1(HypersonicModeAbstract):
 
 
 class HypersonicMode2(HypersonicModeAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -105,6 +245,21 @@ class HypersonicMode2(HypersonicModeAbstract):
 
 
 class HypersonicMode3(HypersonicModeAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass

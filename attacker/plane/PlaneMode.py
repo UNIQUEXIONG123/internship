@@ -10,29 +10,75 @@ class PlaneModeAbstract(ABC):
     def generate(self):
         pass
 
+    @abstractmethod
+    def get_distance(self):
+        pass
 
-class BomberModeAbstract(ABC, PlaneModeAbstract):
-    def __init__(self):
+    @abstractmethod
+    def get_height(self):
+        pass
+
+    @abstractmethod
+    def get_direction(self):
+        pass
+
+    @abstractmethod
+    def get_speed(self):
+        pass
+
+    @abstractmethod
+    def get_heading(self):
+        pass
+
+    @abstractmethod
+    def get_countermeasure(self):
         pass
 
 
-class FighterModeAbstract(ABC, PlaneModeAbstract):
+class BomberModeAbstract(PlaneModeAbstract, ABC):
     def __init__(self):
+        super().__init__()
         pass
 
 
-class HelicopterAbstract(ABC, PlaneModeAbstract):
+class FighterModeAbstract(PlaneModeAbstract, ABC):
     def __init__(self):
+        super().__init__()
         pass
 
 
-class TransportAbstract(ABC, PlaneModeAbstract):
+class HelicopterAbstract(PlaneModeAbstract, ABC):
     def __init__(self):
+        super().__init__()
+        pass
+
+
+class TransportAbstract(PlaneModeAbstract, ABC):
+    def __init__(self):
+        super().__init__()
         pass
 
 
 # 直线飞行模式
 class BomberMode1(BomberModeAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
+    def get_countermeasure(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -43,6 +89,24 @@ class BomberMode1(BomberModeAbstract):
 
 # 俯冲模式
 class BomberMode2(BomberModeAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
+    def get_countermeasure(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -53,6 +117,24 @@ class BomberMode2(BomberModeAbstract):
 
 # 低空飞行模式
 class BomberMode3(BomberModeAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
+    def get_countermeasure(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -63,6 +145,24 @@ class BomberMode3(BomberModeAbstract):
 
 # 直线飞行模式
 class FighterMode1(FighterModeAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
+    def get_countermeasure(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -73,6 +173,24 @@ class FighterMode1(FighterModeAbstract):
 
 # 俯冲模式，到最低的点的时候使用栈道的方式进行逃逸
 class FighterMode2(FighterModeAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
+    def get_countermeasure(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -83,6 +201,24 @@ class FighterMode2(FighterModeAbstract):
 
 # 低空飞行模式，逃逸时采用栈道逃逸
 class FighterMode3(FighterModeAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
+    def get_countermeasure(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -93,6 +229,24 @@ class FighterMode3(FighterModeAbstract):
 
 # 直线模式
 class HelicopterMode1(HelicopterAbstract):
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
+    def get_countermeasure(self):
+        pass
+
+    def get_distance(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -103,6 +257,24 @@ class HelicopterMode1(HelicopterAbstract):
 
 # 低空模式
 class HelicopterMode2(HelicopterAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
+    def get_countermeasure(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -113,6 +285,24 @@ class HelicopterMode2(HelicopterAbstract):
 
 # 栈道模式
 class HelicopterMode3(HelicopterAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
+    def get_countermeasure(self):
+        pass
+
     def __init__(self):
         super().__init__()
         pass
@@ -123,6 +313,24 @@ class HelicopterMode3(HelicopterAbstract):
 
 # 高空直线飞行
 class TransportMode(TransportAbstract):
+    def get_distance(self):
+        pass
+
+    def get_height(self):
+        pass
+
+    def get_direction(self):
+        pass
+
+    def get_speed(self):
+        pass
+
+    def get_heading(self):
+        pass
+
+    def get_countermeasure(self):
+        pass
+
     def __init__(self):
         super().__init__()
 
