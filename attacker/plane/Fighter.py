@@ -32,4 +32,3 @@ class Fighter(AttackerPlane):
         STRAIGHT_LINE = 1  # 直线飞行模式
         PLUNGE = 2  # 俯冲模式
         LOW_LEVEL = 3  # 低空飞行模式
-        SOARING = 4  # 栈道飞行

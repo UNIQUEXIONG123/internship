@@ -104,7 +104,7 @@ class AttackerMode9(AbstractAttackerMode):
         pass
 
 
-AttackerModeDic = {
+attacker_mode_dic = {
     1: AttackerMode1,
     2: AttackerMode2,
     3: AttackerMode3,

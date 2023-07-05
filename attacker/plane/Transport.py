@@ -26,3 +26,6 @@ class Transport(AttackerPlane):
         super().__init__(start_distance, start_height, start_direction, start_speed, start_heading,
                          start_time,
                          max_height, min_height, max_speed, min_speed, threaten_level, is_alive, countermeasure)
+
+    class TransportMode:
+        STRAIGHT_LINE = 1  # 高空直线飞行模式
