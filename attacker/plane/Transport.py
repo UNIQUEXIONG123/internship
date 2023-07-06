@@ -1,5 +1,5 @@
 from attacker.AttackerPlane import AttackerPlane
-from attacker.plane.PlaneMode import transport_mode_dic
+from attacker.plane.PlaneMode import plane_mode_dic
 
 
 class Transport(AttackerPlane):
@@ -28,7 +28,5 @@ class Transport(AttackerPlane):
         super().__init__(start_distance, start_height, start_direction, start_speed, start_heading,
                          start_time,
                          max_height, min_height, max_speed, min_speed, threaten_level, is_alive, countermeasure)
-        self.mode = transport_mode_dic[transport_mode]()
+        self.mode = plane_mode_dic[4]()
 
-    class TransportMode:
-        STRAIGHT_LINE = 1  # 高空直线飞行模式

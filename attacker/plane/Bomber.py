@@ -1,5 +1,5 @@
 from attacker.AttackerPlane import AttackerPlane
-from attacker.plane.PlaneMode import bomber_mode_dic
+from attacker.plane.PlaneMode import plane_mode_dic
 
 
 class Bomber(AttackerPlane):
@@ -27,9 +27,4 @@ class Bomber(AttackerPlane):
         super().__init__(start_distance, start_height, start_direction, start_speed, start_heading,
                          start_time,
                          max_height, min_height, max_speed, min_speed, threaten_level, is_alive, countermeasure)
-        self.mode = bomber_mode_dic[bomber_mode]()
-
-    class BomberMode:
-        STRAIGHT_LINE = 1  # 直线飞行模式
-        PLUNGE = 2  # 俯冲模式
-        LOW_LEVEL = 3  # 低空飞行模式
+        self.mode = plane_mode_dic[1]()
