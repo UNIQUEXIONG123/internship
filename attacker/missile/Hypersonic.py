@@ -4,6 +4,9 @@ from attacker.missile.MissileMode import hypersonic_mode_dic
 
 class Hypersonic(AttackerMissile):
 
+    def get_threaten_level(self):
+        return self.mode.threaten_level
+
     def set_threaten_level(self, level):
         pass
 
@@ -17,10 +20,10 @@ class Hypersonic(AttackerMissile):
         return self.mode.get_direction(t)
 
     def get_speed(self, t):
-        return self.mode.get_speed()
+        return self.mode.get_speed(t)
 
     def get_heading(self, t):
-        return self.mode.get_heading()
+        return self.mode.get_heading(t)
 
     def __init__(self, hypersonic_mode):
         super().__init__()

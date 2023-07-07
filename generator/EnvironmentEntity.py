@@ -14,7 +14,9 @@ def init():
 
 
 attacker_mode_list = init()
-attacker_generator = AttackerGenerator(attacker_mode_list)
+# attacker_generator = AttackerGenerator(attacker_mode_list)
+attacker_generator = AttackerGenerator([1])
+
 defender_generator = DefenderGenerator(24, 120, 200, 400)
 
 

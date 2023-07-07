@@ -52,3 +52,7 @@ class Attacker(ABC):
         设置威胁级别
         """
         pass
+
+    @abstractmethod
+    def get_threaten_level(self):
+        pass
