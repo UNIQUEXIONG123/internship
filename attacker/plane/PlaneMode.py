@@ -89,7 +89,7 @@ class BomberMode(BomberModeAbstract):
         self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
         self.start_heading = random.gauss(0, 0.33)
         self.start_time = 0
-        self.threaten_level = get_threat_level(self.start_distance, AircraftType.BOMBER)
+        self.threaten_level = get_plane_threat_level(self.start_distance, AircraftType.BOMBER)
         self.is_alive = True
         self.countermeasure = 2
 
@@ -149,7 +149,7 @@ class FighterMode(FighterModeAbstract):
         self.start_speed = random.gauss(600, 67)
         self.start_heading = random.gauss(0, 0.33)
         self.start_time = 0
-        self.threaten_level = get_threat_level(self.start_distance, AircraftType.FIGHTER)
+        self.threaten_level = get_plane_threat_level(self.start_distance, AircraftType.FIGHTER)
         self.is_alive = True
         self.countermeasure = 4
 
@@ -188,7 +188,7 @@ class HelicopterMode(HelicopterAbstract):
         self.start_speed = random.gauss(95, 8)
         self.start_heading = random.gauss(0, 0.33)
         self.start_time = 0
-        self.threaten_level = get_threat_level(self.start_distance, AircraftType.HELICOPTER)
+        self.threaten_level = get_plane_threat_level(self.start_distance, AircraftType.HELICOPTER)
         self.is_alive = True
         self.countermeasure = 1
 
@@ -227,7 +227,7 @@ class TransportMode(TransportAbstract):
         self.start_speed = random.gauss(225, 8)
         self.start_heading = random.gauss(0, 0.33)
         self.start_time = 0
-        self.threaten_level = get_threat_level(self.start_distance, AircraftType.TRANSPORT)
+        self.threaten_level = get_plane_threat_level(self.start_distance, AircraftType.TRANSPORT)
         self.is_alive = True
         self.countermeasure = 0
 
@@ -243,7 +243,7 @@ plane_mode_dic = {
 }
 
 
-def get_threat_level(distance, aircraft_type):
+def get_plane_threat_level(distance, aircraft_type):
     threat_levels = {
         AircraftType.TRANSPORT: {
             "8-30": 2,

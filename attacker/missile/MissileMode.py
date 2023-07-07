@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+from enum import Enum
+import random
 
 
 # 导弹的三种飞行模式，由于三种导弹飞行模式都相同，因此抽出来
@@ -8,7 +10,17 @@ from abc import ABC, abstractmethod
 #     DIVE = 3  # 俯冲
 
 
+class MissileType(Enum):
+    SUBSONIC = "Subsonic"
+    SUPERSONIC = "Supersonic"
+    HYPERSONIC = "Hypersonic"
+
+
 class MissileModeAbstract(ABC):
+
+    @abstractmethod
+    def set_threaten_level(self, level):
+        pass
 
     def __init__(self):
         pass
@@ -54,6 +66,9 @@ class HypersonicModeAbstract(MissileModeAbstract, ABC):
 
 
 class SubsonicMode1(SubsonicModeAbstract):
+    def set_threaten_level(self, level):
+        pass
+
     def get_distance(self, t):
         pass
 
@@ -71,6 +86,15 @@ class SubsonicMode1(SubsonicModeAbstract):
 
     def __init__(self):
         super().__init__()
+        # self.start_distance = random.gauss(29000, 3670)  # 18-40公里
+        # self.start_height = random.gauss(550, 90)
+        # self.start_direction = random.uniform(0, 359)
+        # self.start_speed = random.gauss(335, 38)
+        # self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
+        # self.start_heading = random.gauss(0, 0.33)
+        # self.start_time = 0
+        # self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.SUBSONIC)
+        # self.is_alive = True
         pass
 
     def generate(self):
@@ -78,6 +102,9 @@ class SubsonicMode1(SubsonicModeAbstract):
 
 
 class SubsonicMode2(SubsonicModeAbstract):
+    def set_threaten_level(self, level):
+        pass
+
     def get_distance(self, t):
         pass
 
@@ -95,6 +122,15 @@ class SubsonicMode2(SubsonicModeAbstract):
 
     def __init__(self):
         super().__init__()
+        # self.start_distance = random.gauss(29000, 3670)  # 18-40公里
+        # self.start_height = random.gauss(550, 90)
+        # self.start_direction = random.uniform(0, 359)
+        # self.start_speed = random.gauss(335, 38)
+        # self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
+        # self.start_heading = random.gauss(0, 0.33)
+        # self.start_time = 0
+        # self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.SUBSONIC)
+        # self.is_alive = True
         pass
 
     def generate(self):
@@ -102,6 +138,9 @@ class SubsonicMode2(SubsonicModeAbstract):
 
 
 class SubsonicMode3(SubsonicModeAbstract):
+    def set_threaten_level(self, level):
+        pass
+
     def get_distance(self, t):
         pass
 
@@ -119,6 +158,15 @@ class SubsonicMode3(SubsonicModeAbstract):
 
     def __init__(self):
         super().__init__()
+        # self.start_distance = random.gauss(29000, 3670)  # 18-40公里
+        # self.start_height = random.gauss(550, 90)
+        # self.start_direction = random.uniform(0, 359)
+        # self.start_speed = random.gauss(335, 38)
+        # self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
+        # self.start_heading = random.gauss(0, 0.33)
+        # self.start_time = 0
+        # self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.SUBSONIC)
+        # self.is_alive = True
         pass
 
     def generate(self):
@@ -126,6 +174,9 @@ class SubsonicMode3(SubsonicModeAbstract):
 
 
 class SupersonicMode1(SupersonicModeAbstract):
+    def set_threaten_level(self, level):
+        pass
+
     def get_distance(self, t):
         pass
 
@@ -143,6 +194,15 @@ class SupersonicMode1(SupersonicModeAbstract):
 
     def __init__(self):
         super().__init__()
+        # self.start_distance = random.gauss(29000, 3670)  # 18-40公里
+        # self.start_height = random.gauss(550, 90)
+        # self.start_direction = random.uniform(0, 359)
+        # self.start_speed = random.gauss(335, 38)
+        # self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
+        # self.start_heading = random.gauss(0, 0.33)
+        # self.start_time = 0
+        # self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.SUBSONIC)
+        # self.is_alive = True
         pass
 
     def generate(self):
@@ -150,6 +210,9 @@ class SupersonicMode1(SupersonicModeAbstract):
 
 
 class SupersonicMode2(SupersonicModeAbstract):
+    def set_threaten_level(self, level):
+        pass
+
     def get_distance(self, t):
         pass
 
@@ -167,6 +230,15 @@ class SupersonicMode2(SupersonicModeAbstract):
 
     def __init__(self):
         super().__init__()
+        # self.start_distance = random.gauss(29000, 3670)  # 18-40公里
+        # self.start_height = random.gauss(550, 90)
+        # self.start_direction = random.uniform(0, 359)
+        # self.start_speed = random.gauss(335, 38)
+        # self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
+        # self.start_heading = random.gauss(0, 0.33)
+        # self.start_time = 0
+        # self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.SUBSONIC)
+        # self.is_alive = True
         pass
 
     def generate(self):
@@ -174,6 +246,9 @@ class SupersonicMode2(SupersonicModeAbstract):
 
 
 class SupersonicMode3(SupersonicModeAbstract):
+    def set_threaten_level(self, level):
+        pass
+
     def get_distance(self, t):
         pass
 
@@ -191,6 +266,15 @@ class SupersonicMode3(SupersonicModeAbstract):
 
     def __init__(self):
         super().__init__()
+        # self.start_distance = random.gauss(29000, 3670)  # 18-40公里
+        # self.start_height = random.gauss(550, 90)
+        # self.start_direction = random.uniform(0, 359)
+        # self.start_speed = random.gauss(335, 38)
+        # self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
+        # self.start_heading = random.gauss(0, 0.33)
+        # self.start_time = 0
+        # self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.SUBSONIC)
+        # self.is_alive = True
         pass
 
     def generate(self):
@@ -198,6 +282,9 @@ class SupersonicMode3(SupersonicModeAbstract):
 
 
 class HypersonicMode1(HypersonicModeAbstract):
+    def set_threaten_level(self, level):
+        pass
+
     def get_distance(self, t):
         pass
 
@@ -215,6 +302,15 @@ class HypersonicMode1(HypersonicModeAbstract):
 
     def __init__(self):
         super().__init__()
+        # self.start_distance = random.gauss(29000, 3670)  # 18-40公里
+        # self.start_height = random.gauss(550, 90)
+        # self.start_direction = random.uniform(0, 359)
+        # self.start_speed = random.gauss(335, 38)
+        # self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
+        # self.start_heading = random.gauss(0, 0.33)
+        # self.start_time = 0
+        # self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.SUBSONIC)
+        # self.is_alive = True
         pass
 
     def generate(self):
@@ -222,6 +318,9 @@ class HypersonicMode1(HypersonicModeAbstract):
 
 
 class HypersonicMode2(HypersonicModeAbstract):
+    def set_threaten_level(self, level):
+        pass
+
     def get_distance(self, t):
         pass
 
@@ -239,6 +338,15 @@ class HypersonicMode2(HypersonicModeAbstract):
 
     def __init__(self):
         super().__init__()
+        # self.start_distance = random.gauss(29000, 3670)  # 18-40公里
+        # self.start_height = random.gauss(550, 90)
+        # self.start_direction = random.uniform(0, 359)
+        # self.start_speed = random.gauss(335, 38)
+        # self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
+        # self.start_heading = random.gauss(0, 0.33)
+        # self.start_time = 0
+        # self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.SUBSONIC)
+        # self.is_alive = True
         pass
 
     def generate(self):
@@ -246,6 +354,9 @@ class HypersonicMode2(HypersonicModeAbstract):
 
 
 class HypersonicMode3(HypersonicModeAbstract):
+    def set_threaten_level(self, level):
+        pass
+
     def get_distance(self, t):
         pass
 
@@ -263,6 +374,15 @@ class HypersonicMode3(HypersonicModeAbstract):
 
     def __init__(self):
         super().__init__()
+        # self.start_distance = random.gauss(29000, 3670)  # 18-40公里
+        # self.start_height = random.gauss(550, 90)
+        # self.start_direction = random.uniform(0, 359)
+        # self.start_speed = random.gauss(335, 38)
+        # self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
+        # self.start_heading = random.gauss(0, 0.33)
+        # self.start_time = 0
+        # self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.SUBSONIC)
+        # self.is_alive = True
         pass
 
     def generate(self):
@@ -286,3 +406,42 @@ hypersonic_mode_dic = {
     2: HypersonicMode2,
     3: HypersonicMode3
 }
+
+
+def get_missile_threat_level(distance, missile_type):
+    missile_dict = {
+        MissileType.SUBSONIC: {
+            "8-30": 5,
+            "6-8": 7,
+            "1.5-6": 9,
+            "1-1.5": 11,
+            "0.1-1": 13
+        },
+        MissileType.SUPERSONIC: {
+            "8-30": 7,
+            "6-8": 9,
+            "1.5-6": 11,
+            "1-1.5": 13,
+            "0.1-1": 15
+        },
+        MissileType.HYPERSONIC: {
+            "8-30": 9,
+            "6-8": 11,
+            "1.5-6": 13,
+            "1-1.5": 15,
+            "0.1-1": 17
+        }
+    }
+
+    threaten_level = None
+
+    if missile_type in missile_dict:
+        threat_levels = missile_dict[missile_type]
+
+        for range_str, level in threat_levels.items():
+            start, end = map(float, range_str.split("-"))
+            if start <= distance <= end:
+                threaten_level = level
+                break
+
+    return threaten_level
