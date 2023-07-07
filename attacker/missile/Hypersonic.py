@@ -16,10 +16,10 @@ class Hypersonic(AttackerMissile):
     def get_direction(self, t):
         return self.mode.get_direction(t)
 
-    def get_speed(self):
+    def get_speed(self, t):
         return self.mode.get_speed()
 
-    def get_heading(self):
+    def get_heading(self, t):
         return self.mode.get_heading()
 
     def __init__(self, hypersonic_mode):

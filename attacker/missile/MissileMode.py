@@ -18,23 +18,23 @@ class MissileModeAbstract(ABC):
         pass
 
     @abstractmethod
-    def get_distance(self):
+    def get_distance(self, t):
         pass
 
     @abstractmethod
-    def get_height(self):
+    def get_height(self, t):
         pass
 
     @abstractmethod
-    def get_direction(self):
+    def get_direction(self, t):
         pass
 
     @abstractmethod
-    def get_speed(self):
+    def get_speed(self, t):
         pass
 
     @abstractmethod
-    def get_heading(self):
+    def get_heading(self, t):
         pass
 
 
@@ -54,19 +54,19 @@ class HypersonicModeAbstract(MissileModeAbstract, ABC):
 
 
 class SubsonicMode1(SubsonicModeAbstract):
-    def get_distance(self):
+    def get_distance(self, t):
         pass
 
-    def get_height(self):
+    def get_height(self, t):
         pass
 
-    def get_direction(self):
+    def get_direction(self, t):
         pass
 
-    def get_speed(self):
+    def get_speed(self, t):
         pass
 
-    def get_heading(self):
+    def get_heading(self, t):
         pass
 
     def __init__(self):
@@ -78,19 +78,19 @@ class SubsonicMode1(SubsonicModeAbstract):
 
 
 class SubsonicMode2(SubsonicModeAbstract):
-    def get_distance(self):
+    def get_distance(self, t):
         pass
 
-    def get_height(self):
+    def get_height(self, t):
         pass
 
-    def get_direction(self):
+    def get_direction(self, t):
         pass
 
-    def get_speed(self):
+    def get_speed(self, t):
         pass
 
-    def get_heading(self):
+    def get_heading(self, t):
         pass
 
     def __init__(self):
@@ -102,19 +102,19 @@ class SubsonicMode2(SubsonicModeAbstract):
 
 
 class SubsonicMode3(SubsonicModeAbstract):
-    def get_distance(self):
+    def get_distance(self, t):
         pass
 
-    def get_height(self):
+    def get_height(self, t):
         pass
 
-    def get_direction(self):
+    def get_direction(self, t):
         pass
 
-    def get_speed(self):
+    def get_speed(self, t):
         pass
 
-    def get_heading(self):
+    def get_heading(self, t):
         pass
 
     def __init__(self):
@@ -126,19 +126,19 @@ class SubsonicMode3(SubsonicModeAbstract):
 
 
 class SupersonicMode1(SupersonicModeAbstract):
-    def get_distance(self):
+    def get_distance(self, t):
         pass
 
-    def get_height(self):
+    def get_height(self, t):
         pass
 
-    def get_direction(self):
+    def get_direction(self, t):
         pass
 
-    def get_speed(self):
+    def get_speed(self, t):
         pass
 
-    def get_heading(self):
+    def get_heading(self, t):
         pass
 
     def __init__(self):
@@ -150,19 +150,19 @@ class SupersonicMode1(SupersonicModeAbstract):
 
 
 class SupersonicMode2(SupersonicModeAbstract):
-    def get_distance(self):
+    def get_distance(self, t):
         pass
 
-    def get_height(self):
+    def get_height(self, t):
         pass
 
-    def get_direction(self):
+    def get_direction(self, t):
         pass
 
-    def get_speed(self):
+    def get_speed(self, t):
         pass
 
-    def get_heading(self):
+    def get_heading(self, t):
         pass
 
     def __init__(self):
@@ -174,19 +174,19 @@ class SupersonicMode2(SupersonicModeAbstract):
 
 
 class SupersonicMode3(SupersonicModeAbstract):
-    def get_distance(self):
+    def get_distance(self, t):
         pass
 
-    def get_height(self):
+    def get_height(self, t):
         pass
 
-    def get_direction(self):
+    def get_direction(self, t):
         pass
 
-    def get_speed(self):
+    def get_speed(self, t):
         pass
 
-    def get_heading(self):
+    def get_heading(self, t):
         pass
 
     def __init__(self):
@@ -198,19 +198,19 @@ class SupersonicMode3(SupersonicModeAbstract):
 
 
 class HypersonicMode1(HypersonicModeAbstract):
-    def get_distance(self):
+    def get_distance(self, t):
         pass
 
-    def get_height(self):
+    def get_height(self, t):
         pass
 
-    def get_direction(self):
+    def get_direction(self, t):
         pass
 
-    def get_speed(self):
+    def get_speed(self, t):
         pass
 
-    def get_heading(self):
+    def get_heading(self, t):
         pass
 
     def __init__(self):
@@ -222,19 +222,19 @@ class HypersonicMode1(HypersonicModeAbstract):
 
 
 class HypersonicMode2(HypersonicModeAbstract):
-    def get_distance(self):
+    def get_distance(self, t):
         pass
 
-    def get_height(self):
+    def get_height(self, t):
         pass
 
-    def get_direction(self):
+    def get_direction(self, t):
         pass
 
-    def get_speed(self):
+    def get_speed(self, t):
         pass
 
-    def get_heading(self):
+    def get_heading(self, t):
         pass
 
     def __init__(self):
@@ -246,19 +246,19 @@ class HypersonicMode2(HypersonicModeAbstract):
 
 
 class HypersonicMode3(HypersonicModeAbstract):
-    def get_distance(self):
+    def get_distance(self, t):
         pass
 
-    def get_height(self):
+    def get_height(self, t):
         pass
 
-    def get_direction(self):
+    def get_direction(self, t):
         pass
 
-    def get_speed(self):
+    def get_speed(self, t):
         pass
 
-    def get_heading(self):
+    def get_heading(self, t):
         pass
 
     def __init__(self):
