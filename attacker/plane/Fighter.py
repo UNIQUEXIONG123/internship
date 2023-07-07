@@ -4,6 +4,7 @@ from attacker.plane.PlaneMode import plane_mode_dic
 
 class Fighter(AttackerPlane):
     def __init__(self):
+        super().__init__()
         self.mode = plane_mode_dic[2]()
 
     def get_distance(self):
@@ -23,6 +24,3 @@ class Fighter(AttackerPlane):
 
     def get_countermeasure(self):
         return self.mode.get_countermeasure()
-
-
-
