@@ -1,6 +1,12 @@
 from abc import ABC, abstractmethod
 
 from attacker.plane.Fighter import Fighter
+from attacker.plane.Bomber import Bomber
+from attacker.plane.Helicopter import Helicopter
+from attacker.plane.Transport import Transport
+from attacker.missile.Subsonic import Subsonic
+from attacker.missile.Supersonic import Supersonic
+from attacker.missile.Hypersonic import Hypersonic
 
 
 class AbstractAttackerMode(ABC):
@@ -12,92 +18,106 @@ class AbstractAttackerMode(ABC):
         pass
 
 
-# 三个战斗机
+# 2个战斗机
 class AttackerMode1(AbstractAttackerMode):
     def generate(self):
         fighter1 = Fighter()
-        print('direction', fighter1.get_direction(2))
-        print('speed', fighter1.get_speed(2))
-        print('heading', fighter1.get_heading(2))
-        print('threaten', fighter1.get_threaten_level())
+        fighter2 = Fighter()
+        return fighter1, fighter2
 
     def __init__(self):
         super().__init__()
         pass
 
 
-# 三个轰炸机
+# 2个轰炸机
 class AttackerMode2(AbstractAttackerMode):
     def generate(self):
-        print("三个轰炸机")
+        bomber1 = Bomber()
+        bomber2 = Bomber()
+        return bomber1, bomber2
 
     def __init__(self):
         super().__init__()
         pass
 
 
-# 三个直升机
+# 2个直升机
 class AttackerMode3(AbstractAttackerMode):
     def generate(self):
-        print("三个直升机")
+        helicopter1 = Helicopter()
+        helicopter2 = Helicopter()
+        return helicopter1, helicopter2
 
     def __init__(self):
         super().__init__()
         pass
 
 
-# 三个运输机
+# 2个运输机
 class AttackerMode4(AbstractAttackerMode):
     def generate(self):
-        print("三个运输机")
+        transport1 = Transport()
+        transport2 = Transport()
+        return transport1, transport2
 
     def __init__(self):
         super().__init__()
         pass
 
 
-# 三个超高音速导弹
+# 2个亚音速导弹
 class AttackerMode5(AbstractAttackerMode):
     def generate(self):
-        print("三个超高音速导弹")
+        subsonic1 = Subsonic(1)
+        subsonic2 = Subsonic(2)
+        return subsonic1, subsonic2
 
     def __init__(self):
         super().__init__()
         pass
 
 
-# 三个超音速导弹
+# 2个超音速导弹
 class AttackerMode6(AbstractAttackerMode):
     def generate(self):
-        print("三个超音速导弹")
+        supersonic1 = Supersonic(1)
+        supersonic2 = Supersonic(2)
+        return supersonic1, supersonic2
 
     def __init__(self):
         super().__init__()
         pass
 
 
-# 三个亚音速导弹
+# 2个高超音速导弹
 class AttackerMode7(AbstractAttackerMode):
     def generate(self):
-        print("三个亚音速导弹")
+        hypersonic1 = Hypersonic(1)
+        hypersonic2 = Hypersonic(2)
+        return hypersonic1, hypersonic2
 
     def __init__(self):
         super().__init__()
         pass
 
 
+# 一个直升机
 class AttackerMode8(AbstractAttackerMode):
     def generate(self):
-        print("攻击模式8")
+        helicopter = Helicopter()
+        return helicopter
 
     def __init__(self):
         super().__init__()
         pass
 
 
+# 一个轰炸机
 class AttackerMode9(AbstractAttackerMode):
     def generate(self):
-        print("攻击模式9")
+        bomber = Bomber()
+        return bomber
 
     def __init__(self):
         super().__init__()

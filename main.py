@@ -1,5 +1,7 @@
-from generator.EnvironmentEntity import attacker_generator
-from attacker.plane.PlaneMode import get_plane_threat_level
+from generator.AttackerGenerator import attacker_generator
+from generator.DefenderGenerator import defender_generator
 
 if __name__ == '__main__':
     attacker_generator.generate()
+    for item in defender_generator.prepared_list:
+        print(item)

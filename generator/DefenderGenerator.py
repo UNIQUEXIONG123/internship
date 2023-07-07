@@ -1,5 +1,7 @@
 import random
+from typing import List
 
+from attacker import Attacker
 from defender.MC import MC
 from defender.MRAD import MRAD
 from defender.SCNG import SCNG
@@ -15,11 +17,11 @@ class DefenderGenerator:
 
     def __init__(self, mrad_animation, srad_animation, scng_animation, mc_animation):
         # 准备队列
-        self.prepared_list = []
+        self.prepared_list: List[Attacker] = []
         # 分配队列
-        self.allocate_list = []
+        self.allocate_list: List[Attacker] = []
         # 发射队列
-        self.launch_list = []
+        self.launch_list: List[Attacker] = []
         # 记录弹药量
         self.animation_map = {
             "mrad_animation": mrad_animation,
@@ -27,6 +29,14 @@ class DefenderGenerator:
             "scng_animation": scng_animation,
             "mc_animation": mc_animation
         }
+
+    def notified(self, attacker):
+        """
+        在代理中被调用，每生产出来一个实体就加入prepared_list中
+        :param attacker:
+        :return:
+        """
+        self.prepared_list.append(attacker)
 
     def generate(self):
         """
@@ -94,6 +104,17 @@ class DefenderGenerator:
                 print("SCNG:speed: " + str(defender.get_speed()) + ", delay: " + str(defender.get_delay()) +
                       ", angular_velocity: " + str(defender.get_angular_velocity()))
 
+
+class DefenderGeneratorProxy:
+    def __init__(self, p_defender_generator: DefenderGenerator):
+        self.defender_generator = p_defender_generator
+
+    def notified(self, attacker):
+        self.defender_generator.notified(attacker)
+
+
+defender_generator = DefenderGenerator(24, 120, 200, 400)
+defender_generator_proxy = DefenderGeneratorProxy(defender_generator)
 
 # # 使用示例
 # mrad_animation = 10
