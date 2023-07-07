@@ -20,31 +20,31 @@ class PlaneModeAbstract(ABC):
         pass
 
     @abstractmethod
-    def get_distance(self):
+    def get_distance(self, t):
         pass
 
     @abstractmethod
-    def get_height(self):
+    def get_height(self, t):
         pass
 
     @abstractmethod
-    def get_direction(self):
+    def get_direction(self, t):
         pass
 
     @abstractmethod
-    def get_speed(self):
+    def get_speed(self, t):
         pass
 
     @abstractmethod
-    def get_heading(self):
+    def get_heading(self, t):
         pass
 
     @abstractmethod
-    def get_countermeasure(self):
+    def get_countermeasure(self, t):
         pass
 
     @abstractmethod
-    def set_threaten_level(self):
+    def set_threaten_level(self, level):
         pass
 
 
@@ -77,8 +77,8 @@ class TransportAbstract(PlaneModeAbstract, ABC):
 
 # 轰炸机的直线飞行模式
 class BomberMode(BomberModeAbstract):
-    def set_threaten_level(self):
-        pass
+    def set_threaten_level(self, level):
+        self.threaten_level = level
 
     def __init__(self):
         super().__init__()
@@ -86,29 +86,33 @@ class BomberMode(BomberModeAbstract):
         self.start_height = random.gauss(550, 90)
         self.start_direction = random.uniform(0, 359)
         self.start_speed = random.gauss(335, 38)
+        self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
         self.start_heading = random.gauss(0, 0.33)
         self.start_time = 0
         self.threaten_level = get_threat_level(self.start_distance, AircraftType.BOMBER)
         self.is_alive = True
         self.countermeasure = 2
 
-    def get_distance(self):
-        pass
+    def get_distance(self, t):
+        return abs(self.start_distance - self.speed * t)
 
-    def get_height(self):
-        pass
+    def get_height(self, t):
+        return self.start_height
 
-    def get_direction(self):
-        pass
+    def get_direction(self, t):
+        if self.start_distance - self.speed * t > 0:
+            return self.start_direction
+        else:
+            return (self.start_direction + 180) % 360
 
-    def get_speed(self):
-        pass
+    def get_speed(self, t):
+        return self.speed
 
-    def get_heading(self):
-        pass
+    def get_heading(self, t):
+        return self.start_heading
 
-    def get_countermeasure(self):
-        pass
+    def get_countermeasure(self, t):
+        return self.countermeasure
 
     def generate(self):
         pass
@@ -116,25 +120,25 @@ class BomberMode(BomberModeAbstract):
 
 # 攻击机俯冲飞行模式
 class FighterMode(FighterModeAbstract):
-    def set_threaten_level(self):
+    def set_threaten_level(self, level):
         pass
 
-    def get_distance(self):
+    def get_distance(self, t):
         pass
 
-    def get_height(self):
+    def get_height(self, t):
         pass
 
-    def get_direction(self):
+    def get_direction(self, t):
         pass
 
-    def get_speed(self):
+    def get_speed(self, t):
         pass
 
-    def get_heading(self):
+    def get_heading(self, t):
         pass
 
-    def get_countermeasure(self):
+    def get_countermeasure(self, t):
         pass
 
     def __init__(self):
@@ -155,25 +159,25 @@ class FighterMode(FighterModeAbstract):
 
 # 直升机的俯冲飞行模式
 class HelicopterMode(HelicopterAbstract):
-    def set_threaten_level(self):
+    def set_threaten_level(self, level):
         pass
 
-    def get_height(self):
+    def get_height(self, t):
         pass
 
-    def get_direction(self):
+    def get_direction(self, t):
         pass
 
-    def get_speed(self):
+    def get_speed(self, t):
         pass
 
-    def get_heading(self):
+    def get_heading(self, t):
         pass
 
-    def get_countermeasure(self):
+    def get_countermeasure(self, t):
         pass
 
-    def get_distance(self):
+    def get_distance(self, t):
         pass
 
     def __init__(self):
@@ -194,25 +198,25 @@ class HelicopterMode(HelicopterAbstract):
 
 # 运输机的高空直线飞行模式
 class TransportMode(TransportAbstract):
-    def set_threaten_level(self):
+    def set_threaten_level(self, level):
         pass
 
-    def get_distance(self):
+    def get_distance(self, t):
         pass
 
-    def get_height(self):
+    def get_height(self, t):
         pass
 
-    def get_direction(self):
+    def get_direction(self, t):
         pass
 
-    def get_speed(self):
+    def get_speed(self, t):
         pass
 
-    def get_heading(self):
+    def get_heading(self, t):
         pass
 
-    def get_countermeasure(self):
+    def get_countermeasure(self, t):
         return 0
 
     def __init__(self):
