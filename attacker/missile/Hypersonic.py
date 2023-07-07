@@ -4,14 +4,17 @@ from attacker.missile.MissileMode import hypersonic_mode_dic
 
 class Hypersonic(AttackerMissile):
 
-    def get_distance(self):
-        return self.mode.get_distance()
+    def set_threaten_level(self, level):
+        pass
 
-    def get_height(self):
-        return self.mode.get_height()
+    def get_distance(self, t):
+        return self.mode.get_distance(t)
 
-    def get_direction(self):
-        return self.mode.get_direction()
+    def get_height(self, t):
+        return self.mode.get_height(t)
+
+    def get_direction(self, t):
+        return self.mode.get_direction(t)
 
     def get_speed(self):
         return self.mode.get_speed()

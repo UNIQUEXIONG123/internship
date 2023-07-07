@@ -160,7 +160,7 @@ class FighterMode(FighterModeAbstract):
 # 直升机的俯冲飞行模式
 class HelicopterMode(HelicopterAbstract):
     def set_threaten_level(self, level):
-        pass
+        self.threaten_level = level
 
     def get_height(self, t):
         pass

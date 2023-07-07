@@ -9,6 +9,7 @@ from abc import ABC, abstractmethod
 
 
 class MissileModeAbstract(ABC):
+
     def __init__(self):
         pass
 
