@@ -23,8 +23,7 @@ class Helicopter(AttackerPlane):
         return self.mode.get_countermeasure()
 
     def __init__(self, start_distance, start_height, start_direction, start_speed, start_heading, start_time,
-                 max_height, min_height, max_speed, min_speed, threaten_level, is_alive, countermeasure,
-                 helicopter_mode):
+                 max_height, min_height, max_speed, min_speed, threaten_level, is_alive, countermeasure):
         super().__init__(start_distance, start_height, start_direction, start_speed, start_heading,
                          start_time,
                          max_height, min_height, max_speed, min_speed, threaten_level, is_alive, countermeasure)

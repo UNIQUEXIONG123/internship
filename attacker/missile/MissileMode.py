@@ -267,6 +267,7 @@ class HypersonicMode3(HypersonicModeAbstract):
     def generate(self):
         pass
 
+
 subsonic_mode_dic = {
     1: SubsonicMode1,
     2: SubsonicMode2,

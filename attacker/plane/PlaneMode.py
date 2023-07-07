@@ -1,21 +1,11 @@
+import random
 from abc import ABC, abstractmethod
 
 
 class PlaneModeAbstract(ABC):
-    def __init__(self, start_distance, start_height, start_direction, start_speed, start_heading, start_time,
-                 max_height, min_height, max_speed, min_speed, threaten_level, is_alive):
-        self.start_distance = start_distance
-        self.start_height = start_height
-        self.start_direction = start_direction
-        self.start_speed = start_speed
-        self.start_heading = start_heading
-        self.start_time = start_time
-        self.max_height = max_height
-        self.min_height = min_height
-        self.max_speed = max_speed
-        self.min_speed = min_speed
-        self.threaten_level = threaten_level
-        self.is_alive = is_alive
+    def __init__(self):
+        pass
+
     # 生成实体实际数据
     @abstractmethod
     def generate(self):
@@ -59,33 +49,7 @@ class FighterModeAbstract(PlaneModeAbstract, ABC):
     def __init__(self):
         super().__init__()
         pass
-    @abstractmethod
-    def generate(self):
-        pass
 
-    @abstractmethod
-    def get_distance(self):
-        pass
-
-    @abstractmethod
-    def get_height(self):
-        pass
-
-    @abstractmethod
-    def get_direction(self):
-        pass
-
-    @abstractmethod
-    def get_speed(self):
-        pass
-
-    @abstractmethod
-    def get_heading(self):
-        pass
-
-    @abstractmethod
-    def get_countermeasure(self):
-        pass
 
 class HelicopterAbstract(PlaneModeAbstract, ABC):
     def __init__(self):
@@ -101,6 +65,22 @@ class TransportAbstract(PlaneModeAbstract, ABC):
 
 # 轰炸机的直线飞行模式
 class BomberMode(BomberModeAbstract):
+    def __init__(self):
+        super().__init__()
+        self.start_distance = 1
+        self.start_height = 1
+        self.start_direction = 1
+        self.start_speed = 1
+        self.start_heading = 1
+        self.start_time = 1
+        self.max_height = 1
+        self.min_height = 1
+        self.max_speed = 1
+        self.min_speed = 1
+        self.threaten_level = 1
+        self.is_alive = True
+        self.countermeasure = 1
+
     def get_distance(self):
         pass
 
@@ -119,12 +99,9 @@ class BomberMode(BomberModeAbstract):
     def get_countermeasure(self):
         pass
 
-    def __init__(self):
-        super().__init__()
-        pass
-
     def generate(self):
         pass
+
 
 # 攻击机俯冲飞行模式
 class FighterMode(FighterModeAbstract):
@@ -148,10 +125,23 @@ class FighterMode(FighterModeAbstract):
 
     def __init__(self):
         super().__init__()
-        pass
+        self.start_distance = 1
+        self.start_height = 1
+        self.start_direction = 1
+        self.start_speed = 1
+        self.start_heading = 1
+        self.start_time = 1
+        self.max_height = 1
+        self.min_height = 1
+        self.max_speed = 1
+        self.min_speed = 1
+        self.threaten_level = 1
+        self.is_alive = True
+        self.countermeasure = 1
 
     def generate(self):
         pass
+
 
 # 直升机的俯冲飞行模式
 class HelicopterMode(HelicopterAbstract):
@@ -175,10 +165,23 @@ class HelicopterMode(HelicopterAbstract):
 
     def __init__(self):
         super().__init__()
-        pass
+        self.start_distance = 1
+        self.start_height = 1
+        self.start_direction = 1
+        self.start_speed = 1
+        self.start_heading = 1
+        self.start_time = 1
+        self.max_height = 1
+        self.min_height = 1
+        self.max_speed = 1
+        self.min_speed = 1
+        self.threaten_level = 1
+        self.is_alive = True
+        self.countermeasure = 1
 
     def generate(self):
         pass
+
 
 # 运输机的高空直线飞行模式
 class TransportMode(TransportAbstract):
@@ -202,9 +205,23 @@ class TransportMode(TransportAbstract):
 
     def __init__(self):
         super().__init__()
+        self.start_distance = 1
+        self.start_height = 1
+        self.start_direction = 1
+        self.start_speed = random.gauss(225, 8)
+        self.start_heading = 1
+        self.start_time = 1
+        self.max_height = 1
+        self.min_height = 1
+        self.max_speed = 1
+        self.min_speed = 1
+        self.threaten_level = 1
+        self.is_alive = True
+        self.countermeasure = 1
 
     def generate(self):
         pass
+
 
 plane_mode_dic = {
     1: BomberMode,
