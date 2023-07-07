@@ -267,6 +267,7 @@ plane_mode_dic = {
 def get_plane_threat_level(distance, aircraft_type):
     threat_levels = {
         AircraftType.TRANSPORT: {
+            "30-100": 1,
             "8-30": 2,
             "6-8": 3,
             "1.5-6": 4,
@@ -274,6 +275,7 @@ def get_plane_threat_level(distance, aircraft_type):
             "0.1-1": 6
         },
         AircraftType.HELICOPTER: {
+            "30-100": 1,
             "8-30": 2,
             "6-8": 3,
             "1.5-6": 4,
@@ -281,6 +283,7 @@ def get_plane_threat_level(distance, aircraft_type):
             "0.1-1": 6
         },
         AircraftType.FIGHTER: {
+            "30-100": 1,
             "8-30": 3,
             "6-8": 4,
             "1.5-6": 5,
@@ -288,6 +291,7 @@ def get_plane_threat_level(distance, aircraft_type):
             "0.1-1": 7
         },
         AircraftType.BOMBER: {
+            "30-100": 1,
             "8-30": 2,
             "6-8": 3,
             "1.5-6": 5,
@@ -300,7 +304,7 @@ def get_plane_threat_level(distance, aircraft_type):
 
     for range_str, level in threat_levels[aircraft_type].items():
         start, end = map(float, range_str.split("-"))
-        if start <= distance <= end:
+        if start * 1000 <= distance <= end * 1000:
             threaten_level = level
             break
 

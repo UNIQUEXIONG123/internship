@@ -402,6 +402,7 @@ hypersonic_mode_dic = {
 def get_missile_threat_level(distance, missile_type):
     missile_dict = {
         MissileType.SUBSONIC: {
+            "30-100": 1,
             "8-30": 5,
             "6-8": 7,
             "1.5-6": 9,
@@ -409,6 +410,7 @@ def get_missile_threat_level(distance, missile_type):
             "0.1-1": 13
         },
         MissileType.SUPERSONIC: {
+            "30-100": 1,
             "8-30": 7,
             "6-8": 9,
             "1.5-6": 11,
@@ -416,6 +418,7 @@ def get_missile_threat_level(distance, missile_type):
             "0.1-1": 15
         },
         MissileType.HYPERSONIC: {
+            "30-100": 1,
             "8-30": 9,
             "6-8": 11,
             "1.5-6": 13,
@@ -431,7 +434,7 @@ def get_missile_threat_level(distance, missile_type):
 
         for range_str, level in threat_levels.items():
             start, end = map(float, range_str.split("-"))
-            if start <= distance <= end:
+            if start * 1000 <= distance <= end * 1000:
                 threaten_level = level
                 break
 
