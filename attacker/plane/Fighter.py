@@ -3,8 +3,8 @@ from attacker.plane.PlaneMode import plane_mode_dic
 
 
 class Fighter(AttackerPlane):
-    def get_threaten_level(self):
-        return self.mode.threaten_level
+    def get_threaten_level(self, t):
+        return self.mode.get_threaten_level(t)
 
     def set_threaten_level(self, level):
         self.mode.set_threaten_level(level)

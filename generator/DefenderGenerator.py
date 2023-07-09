@@ -1,7 +1,7 @@
 import random
 from typing import List
 
-from attacker import Attacker
+from attacker.Attacker import Attacker
 from defender.MC import MC
 from defender.MRAD import MRAD
 from defender.SCNG import SCNG
@@ -17,7 +17,7 @@ class DefenderGenerator:
 
     def __init__(self, mrad_animation, srad_animation, scng_animation, mc_animation):
         # 准备队列
-        self.prepared_list: List[Attacker] = []
+        self.prepare_list: List[Attacker] = []
         # 分配队列
         self.allocate_list: List[Attacker] = []
         # 发射队列
@@ -30,13 +30,19 @@ class DefenderGenerator:
             "mc_animation": mc_animation
         }
 
+    def get_prepare_list(self) -> List[Attacker]:
+        return self.prepare_list
+
+    def add_prepare_list(self, attacker: Attacker):
+        self.prepare_list.append(attacker)
+
     def notified(self, attacker):
         """
         在代理中被调用，每生产出来一个实体就加入prepared_list中
         :param attacker:
         :return:
         """
-        self.prepared_list.append(attacker)
+        self.prepare_list.append(attacker)
 
     def generate(self):
         """

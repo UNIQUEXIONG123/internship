@@ -4,8 +4,8 @@ from attacker.missile.MissileMode import subsonic_mode_dic
 
 class Subsonic(AttackerMissile):
 
-    def get_threaten_level(self):
-        return self.mode.threaten_level
+    def get_threaten_level(self, t):
+        return self.mode.get_threaten_level(t)
 
     def set_threaten_level(self, level):
         pass

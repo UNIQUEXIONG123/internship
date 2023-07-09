@@ -4,11 +4,11 @@ from attacker.missile.MissileMode import hypersonic_mode_dic
 
 class Hypersonic(AttackerMissile):
 
-    def get_threaten_level(self):
-        return self.mode.threaten_level
+    def get_threaten_level(self, t):
+        return self.mode.get_threaten_level(t)
 
     def set_threaten_level(self, level):
-        pass
+        self.mode.threaten_level = level
 
     def get_distance(self, t):
         return self.mode.get_distance(t)

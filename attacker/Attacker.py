@@ -54,5 +54,5 @@ class Attacker(ABC):
         pass
 
     @abstractmethod
-    def get_threaten_level(self):
+    def get_threaten_level(self, t):
         pass

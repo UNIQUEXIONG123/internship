@@ -48,6 +48,10 @@ class PlaneModeAbstract(ABC):
     def set_threaten_level(self, level):
         pass
 
+    @abstractmethod
+    def get_threaten_level(self, t):
+        pass
+
 
 class BomberModeAbstract(PlaneModeAbstract, ABC):
     def __init__(self):
@@ -78,6 +82,9 @@ class TransportAbstract(PlaneModeAbstract, ABC):
 
 # 轰炸机的直线飞行模式
 class BomberMode(BomberModeAbstract):
+    def get_threaten_level(self, t):
+        return get_plane_threat_level(self.get_distance(t), AircraftType.BOMBER)
+
     def set_threaten_level(self, level):
         self.threaten_level = level
 
@@ -121,6 +128,9 @@ class BomberMode(BomberModeAbstract):
 
 # 攻击机俯冲飞行模式
 class FighterMode(FighterModeAbstract):
+    def get_threaten_level(self, t):
+        return get_plane_threat_level(self.get_distance(t), AircraftType.FIGHTER)
+
     def set_threaten_level(self, level):
         self.threaten_level = level
 
@@ -171,6 +181,9 @@ class FighterMode(FighterModeAbstract):
 
 # 直升机的俯冲飞行模式
 class HelicopterMode(HelicopterAbstract):
+    def get_threaten_level(self, t):
+        return get_plane_threat_level(self.get_distance(t), AircraftType.HELICOPTER)
+
     def set_threaten_level(self, level):
         self.threaten_level = level
 
@@ -215,6 +228,9 @@ class HelicopterMode(HelicopterAbstract):
 
 # 运输机的高空直线飞行模式
 class TransportMode(TransportAbstract):
+    def get_threaten_level(self, t):
+        return get_plane_threat_level(self.get_distance(t), AircraftType.TRANSPORT)
+
     def set_threaten_level(self, level):
         self.threaten_level = level
 
