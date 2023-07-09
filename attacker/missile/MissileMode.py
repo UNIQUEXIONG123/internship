@@ -90,7 +90,7 @@ class MissileMode1Abstract(MissileModeAbstract, ABC):
 
 
 class MissileMode2Abstract(MissileModeAbstract, ABC):
-    # TODO: FINISH THIS CLASS'S METHODS
+
     def __init__(self):
         super().__init__()
 
@@ -98,19 +98,31 @@ class MissileMode2Abstract(MissileModeAbstract, ABC):
         self.threaten_level = level
 
     def get_distance(self, t):
-        pass
+        distance = self.speed * math.cos(self.start_direction) * t
+        return distance
 
     def get_height(self, t):
-        pass
+        # 平抛运动下，垂直方向高度随时间变化
+        height = self.start_height + (self.speed * math.sin(self.start_direction) * t) - (
+                0.5 * 9.8 * t ** 2)
+        return height
 
     def get_direction(self, t):
-        pass
+        direction = self.start_direction + math.degrees(
+            math.atan(-9.8 / (self.speed * math.sin(self.start_direction)) * t))
+        return direction
 
     def get_speed(self, t):
-        pass
+        speed_horizontal = self.speed * math.cos(math.radians(self.start_direction))
+        speed_vertical = self.speed * math.sin(math.radians(self.start_direction)) - 9.8 * t
+        speed = math.sqrt(speed_horizontal ** 2 + speed_vertical ** 2)
+        return speed
 
     def get_heading(self, t):
-        pass
+        speed_horizontal = self.speed * math.cos(math.radians(self.get_direction(t)))
+        speed_vertical = self.speed * math.sin(math.radians(self.get_direction(t)))
+        heading = math.degrees(math.atan2(speed_vertical, speed_horizontal))
+        return heading
 
 
 class MissileMode3Abstract(MissileModeAbstract, ABC):
