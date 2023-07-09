@@ -81,6 +81,8 @@ class BomberMode(BomberModeAbstract):
             return (self.start_direction + 180) % 360
 
     def get_speed(self, t):
+        if t == 0:
+            return self.start_speed
         return self.speed
 
     def get_heading(self, t):
@@ -115,6 +117,8 @@ class FighterMode(FighterModeAbstract):
             return (self.start_direction + 180) % 360
 
     def get_speed(self, t):
+        if t == 0:
+            return self.start_speed
         return self.speed
 
     def get_heading(self, t):
@@ -155,6 +159,8 @@ class HelicopterMode(HelicopterAbstract):
             return (self.start_direction + 180) % 360
 
     def get_speed(self, t):
+        if t == 0:
+            return self.start_speed
         return self.speed
 
     def get_heading(self, t):
@@ -196,6 +202,8 @@ class TransportMode(TransportAbstract):
             return (self.start_direction + 180) % 360
 
     def get_speed(self, t):
+        if t == 0:
+            return self.start_speed
         return self.speed
 
     def get_heading(self, t):

@@ -41,6 +41,8 @@ class MissileMode1Abstract(MissileModeAbstract, ABC):
             return (self.start_direction + 180) % 360
 
     def get_speed(self, t):
+        if t == 0:
+            return self.start_speed
         return self.speed
 
     def get_heading(self, t):
@@ -104,6 +106,8 @@ class MissileMode3Abstract(MissileModeAbstract, ABC):
             return (self.start_direction + 180) % 360
 
     def get_speed(self, t):
+        if t == 0:
+            return self.start_speed
         return self.speed
 
     def get_heading(self, t):
@@ -327,6 +331,8 @@ class HypersonicMode3(MissileMode3Abstract):
             return (self.start_direction + 180) % 360
 
     def get_speed(self, t):
+        if t == 0:
+            return self.start_speed
         return self.speed
 
     def get_heading(self, t):
