@@ -19,6 +19,9 @@ class ModeAbstract(ABC):
     def set_threaten_level(self, level):
         self.threaten_level = level
 
+    def get_mode_name(self):
+        return self.mode_name
+
     @abstractmethod
     def generate(self):
         pass
@@ -47,10 +50,8 @@ class ModeAbstract(ABC):
     def get_threaten_level(self, t):
         pass
 
-    def get_mode_name(self):
-        return self.mode_name
 
-
+# 默认的模式，只是用来为抽象类提供api
 class DefaultMode(ModeAbstract):
     def generate(self):
         pass

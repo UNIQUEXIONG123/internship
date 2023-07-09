@@ -46,6 +46,11 @@ class Attacker(ABC):
         self.mode.set_threaten_level(level)
 
     def get_threaten_level(self, t):
+        """
+        获取危险等级
+        :param t: 时间
+        :return: 危险等级
+        """
         return self.mode.get_threaten_level(t)
 
     def get_type(self):
@@ -56,6 +61,10 @@ class Attacker(ABC):
         return self.type
 
     def get_is_alive(self):
+        """
+        返回是否存活
+        :return: bool
+        """
         return self.mode.is_alive
 
     def destroy(self):
@@ -66,4 +75,8 @@ class Attacker(ABC):
         pass
 
     def get_mode_name(self):
+        """
+        获取模型名字
+        :return: string
+        """
         return self.mode.get_mode_name()

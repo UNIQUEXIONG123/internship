@@ -23,37 +23,6 @@ class MissileModeAbstract(ModeAbstract, ABC):
     def __init__(self):
         super().__init__()
 
-    @abstractmethod
-    def generate(self):
-        pass
-
-    @abstractmethod
-    def get_distance(self, t):
-        pass
-
-    @abstractmethod
-    def get_height(self, t):
-        pass
-
-    @abstractmethod
-    def get_direction(self, t):
-        pass
-
-    @abstractmethod
-    def get_speed(self, t):
-        pass
-
-    @abstractmethod
-    def get_heading(self, t):
-        pass
-
-    @abstractmethod
-    def get_threaten_level(self, t):
-        pass
-
-    def get_mode_name(self):
-        return self.mode_name
-
 
 class MissileMode1Abstract(MissileModeAbstract, ABC):
     def __init__(self):
@@ -309,24 +278,6 @@ class HypersonicMode2(MissileMode2Abstract):
     def get_threaten_level(self, t):
         return get_missile_threat_level(self.get_distance(t), MissileType.HYPERSONIC)
 
-    def set_threaten_level(self, level):
-        self.threaten_level = level
-
-    def get_distance(self, t):
-        pass
-
-    def get_height(self, t):
-        pass
-
-    def get_direction(self, t):
-        pass
-
-    def get_speed(self, t):
-        pass
-
-    def get_heading(self, t):
-        pass
-
     def __init__(self):
         super().__init__()
         self.start_distance = random.gauss(44000, 2000)  # 44公里左右出现导弹，比飞机远一点
@@ -355,9 +306,6 @@ class HypersonicMode2(MissileMode2Abstract):
 class HypersonicMode3(MissileMode3Abstract):
     def get_threaten_level(self, t):
         return get_missile_threat_level(self.get_distance(t), MissileType.HYPERSONIC)
-
-    def set_threaten_level(self, level):
-        self.threaten_level = level
 
     def get_distance(self, t):
         # 斜边长

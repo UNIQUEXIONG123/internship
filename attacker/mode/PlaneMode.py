@@ -1,9 +1,10 @@
 import math
 import random
-from abc import ABC, abstractmethod
+from abc import ABC
 from enum import Enum
-from utils.Utils import ModeNames
+
 from attacker.mode.Mode import ModeAbstract
+from utils.Utils import ModeNames
 
 
 class AircraftType(Enum):
@@ -14,52 +15,18 @@ class AircraftType(Enum):
 
 
 class PlaneModeAbstract(ModeAbstract, ABC):
-    # TODO: FINISH THIS CLASS'S METHODS
+
     def __init__(self):
         super().__init__()
+        self.counter_measure = 0
 
-    # 生成实体实际数据
-    @abstractmethod
-    def generate(self):
-        pass
-
-    @abstractmethod
-    def get_distance(self, t):
-        pass
-
-    @abstractmethod
-    def get_height(self, t):
-        pass
-
-    @abstractmethod
-    def get_direction(self, t):
-        pass
-
-    @abstractmethod
-    def get_speed(self, t):
-        pass
-
-    @abstractmethod
-    def get_heading(self, t):
-        pass
-
-    @abstractmethod
-    def get_countermeasure(self, t):
-        pass
-
-    @abstractmethod
-    def get_threaten_level(self, t):
-        pass
-
-    def get_mode_name(self):
-        return self.mode_name
+    def get_countermeasure(self):
+        return self.counter_measure
 
 
 class BomberModeAbstract(PlaneModeAbstract, ABC):
+
     def __init__(self):
-        """
-        生成
-        """
         super().__init__()
         self.mode_name = ModeNames.BOMBER_MODE
 
@@ -119,9 +86,6 @@ class BomberMode(BomberModeAbstract):
     def get_heading(self, t):
         return self.start_heading
 
-    def get_countermeasure(self, t):
-        return self.countermeasure
-
     def generate(self):
         pass
 
@@ -155,9 +119,6 @@ class FighterMode(FighterModeAbstract):
 
     def get_heading(self, t):
         return self.start_heading
-
-    def get_countermeasure(self, t):
-        return self.countermeasure
 
     def __init__(self):
         super().__init__()
@@ -198,9 +159,6 @@ class HelicopterMode(HelicopterAbstract):
 
     def get_heading(self, t):
         return self.start_heading
-
-    def get_countermeasure(self, t):
-        return self.countermeasure
 
     # 直升机的高度设置de很低，掠海高度
     def __init__(self):
@@ -243,9 +201,6 @@ class TransportMode(TransportAbstract):
     def get_heading(self, t):
         return self.start_heading
 
-    def get_countermeasure(self, t):
-        return 0
-
     def __init__(self):
         super().__init__()
         self.start_distance = random.gauss(29000, 3670)
@@ -281,9 +236,6 @@ class DefaultPlaneMode(PlaneModeAbstract):
         return 0
 
     def get_heading(self, t):
-        return 0
-
-    def get_countermeasure(self, t):
         return 0
 
     def get_threaten_level(self, t):
