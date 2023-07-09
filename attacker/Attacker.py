@@ -1,58 +1,69 @@
-from abc import ABC, abstractmethod
+from abc import ABC
+from attacker.mode.Mode import DefaultMode
+from utils.Utils import AttackerTypes
 
 
 class Attacker(ABC):
     def __init__(self):
-        pass
+        self.is_alive = True
+        self.type = AttackerTypes.DEFAULT_TYPE
+        self.mode = DefaultMode()
 
-    @abstractmethod
     def get_distance(self, t):
         """
         获取距离
         """
-        pass
+        return self.mode.get_distance(t)
 
-    @abstractmethod
     def get_height(self, t):
         """
         获取高度
         """
-        pass
+        return self.mode.get_height(t)
 
-    @abstractmethod
     def get_direction(self, t):
         """
         获取方向
         """
-        pass
+        return self.mode.get_direction(t)
 
-    @abstractmethod
     def get_speed(self, t):
         """
         获取速度
         """
-        pass
+        return self.mode.get_speed(t)
 
-    @abstractmethod
     def get_heading(self, t):
         """
         获取航向
         """
-        pass
+        return self.mode.get_heading(t)
+
+    def set_threaten_level(self, level):
+        """
+        设置威胁级别
+        """
+        self.mode.set_threaten_level(level)
+
+    def get_threaten_level(self, t):
+        return self.mode.get_threaten_level(t)
+
+    def get_type(self):
+        """
+        获取攻击方的武器类型
+        :return: utils.Utils.Types
+        """
+        return self.type
+
+    def get_is_alive(self):
+        return self.mode.is_alive
 
     def destroy(self):
         """
         摧毁目标
         """
+        # TODO: to finish
         pass
 
-    @abstractmethod
-    def set_threaten_level(self, level):
-        """
-        设置威胁级别
-        """
-        pass
-
-    @abstractmethod
-    def get_threaten_level(self, t):
-        pass
+    def get_mode_name(self):
+        return self.mode.get_mode_name()

@@ -2,6 +2,8 @@ import math
 import random
 from abc import ABC, abstractmethod
 from enum import Enum
+from utils.Utils import ModeNames
+from attacker.mode.Mode import ModeAbstract
 
 
 class AircraftType(Enum):
@@ -11,10 +13,10 @@ class AircraftType(Enum):
     BOMBER = "Bomber"
 
 
-class PlaneModeAbstract(ABC):
+class PlaneModeAbstract(ModeAbstract, ABC):
     # TODO: FINISH THIS CLASS'S METHODS
     def __init__(self):
-        pass
+        super().__init__()
 
     # 生成实体实际数据
     @abstractmethod
@@ -46,12 +48,11 @@ class PlaneModeAbstract(ABC):
         pass
 
     @abstractmethod
-    def set_threaten_level(self, level):
-        pass
-
-    @abstractmethod
     def get_threaten_level(self, t):
         pass
+
+    def get_mode_name(self):
+        return self.mode_name
 
 
 class BomberModeAbstract(PlaneModeAbstract, ABC):
@@ -60,24 +61,25 @@ class BomberModeAbstract(PlaneModeAbstract, ABC):
         生成
         """
         super().__init__()
-        pass
+        self.mode_name = ModeNames.BOMBER_MODE
 
 
 class FighterModeAbstract(PlaneModeAbstract, ABC):
     def __init__(self):
         super().__init__()
-        pass
+        self.mode_name = ModeNames.FIGHTER_MODE
 
 
 class HelicopterAbstract(PlaneModeAbstract, ABC):
     def __init__(self):
         super().__init__()
-        pass
+        self.mode_name = ModeNames.HELICOPTER_MODE
 
 
 class TransportAbstract(PlaneModeAbstract, ABC):
     def __init__(self):
         super().__init__()
+        self.mode_name = ModeNames.TRANSPORT_MODE
         pass
 
 
@@ -85,9 +87,6 @@ class TransportAbstract(PlaneModeAbstract, ABC):
 class BomberMode(BomberModeAbstract):
     def get_threaten_level(self, t):
         return get_plane_threat_level(self.get_distance(t), AircraftType.BOMBER)
-
-    def set_threaten_level(self, level):
-        self.threaten_level = level
 
     def __init__(self):
         super().__init__()
@@ -131,9 +130,6 @@ class BomberMode(BomberModeAbstract):
 class FighterMode(FighterModeAbstract):
     def get_threaten_level(self, t):
         return get_plane_threat_level(self.get_distance(t), AircraftType.FIGHTER)
-
-    def set_threaten_level(self, level):
-        self.threaten_level = level
 
     def get_distance(self, t):
         # 斜边长
@@ -185,9 +181,6 @@ class HelicopterMode(HelicopterAbstract):
     def get_threaten_level(self, t):
         return get_plane_threat_level(self.get_distance(t), AircraftType.HELICOPTER)
 
-    def set_threaten_level(self, level):
-        self.threaten_level = level
-
     def get_distance(self, t):
         return abs(self.start_distance - self.speed * t)
 
@@ -232,9 +225,6 @@ class TransportMode(TransportAbstract):
     def get_threaten_level(self, t):
         return get_plane_threat_level(self.get_distance(t), AircraftType.TRANSPORT)
 
-    def set_threaten_level(self, level):
-        self.threaten_level = level
-
     def get_distance(self, t):
         return abs(self.start_distance - self.speed * t)
 
@@ -271,6 +261,33 @@ class TransportMode(TransportAbstract):
 
     def generate(self):
         pass
+
+
+class DefaultPlaneMode(PlaneModeAbstract):
+
+    def generate(self):
+        pass
+
+    def get_distance(self, t):
+        return 0
+
+    def get_height(self, t):
+        return 0
+
+    def get_direction(self, t):
+        return 0
+
+    def get_speed(self, t):
+        return 0
+
+    def get_heading(self, t):
+        return 0
+
+    def get_countermeasure(self, t):
+        return 0
+
+    def get_threaten_level(self, t):
+        return 0
 
 
 plane_mode_dic = {

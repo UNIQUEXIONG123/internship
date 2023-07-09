@@ -29,7 +29,12 @@ class AttackerGenerator:
             attackers = generator.generate()
             if isinstance(attackers, tuple):  # 判断返回值是否是元组
                 for attacker in attackers:
-                    self.notify(attacker)
+                    if isinstance(attacker, Attacker):
+                        if attacker.get_is_alive():   # 增加这个判定是如果导弹射不中，就不要加入准备队列
+                            self.notify(attacker)
+                        else:
+                            # TODO: 如果发现有输出a dead attacker, 代表数据生成不合理，敌方打不到我方
+                            print("a dead attacker")
             else:
                 self.notify(attackers)
 

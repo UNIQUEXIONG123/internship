@@ -2,7 +2,8 @@ import math
 from abc import ABC, abstractmethod
 from enum import Enum
 import random
-
+from utils.Utils import solve_quadratic_equation, ModeNames
+from attacker.mode.Mode import ModeAbstract
 
 # 导弹的三种飞行模式，由于三种导弹飞行模式都相同，因此抽出来
 # class Mode:
@@ -17,22 +18,10 @@ class MissileType(Enum):
     HYPERSONIC = "Hypersonic"
 
 
-class MissileModeAbstract(ABC):
-
-    @abstractmethod
-    def set_threaten_level(self, level):
-        pass
+class MissileModeAbstract(ModeAbstract, ABC):
 
     def __init__(self):
-        self.start_distance = 0
-        self.start_height = 0
-        self.start_direction = 0
-        self.start_speed = 0
-        self.speed = 0
-        self.start_heading = 0
-        self.start_time = 0
-        self.threaten_level = 0
-        self.is_alive = True
+        super().__init__()
 
     @abstractmethod
     def generate(self):
@@ -62,13 +51,13 @@ class MissileModeAbstract(ABC):
     def get_threaten_level(self, t):
         pass
 
+    def get_mode_name(self):
+        return self.mode_name
+
 
 class MissileMode1Abstract(MissileModeAbstract, ABC):
     def __init__(self):
         super().__init__()
-
-    def set_threaten_level(self, level):
-        self.threaten_level = level
 
     def get_distance(self, t):
         return abs(self.start_distance - self.speed * t)
@@ -89,48 +78,42 @@ class MissileMode1Abstract(MissileModeAbstract, ABC):
         return self.start_heading
 
 
+# 增加初始抛射角projectile_angle
 class MissileMode2Abstract(MissileModeAbstract, ABC):
 
     def __init__(self):
         super().__init__()
-
-    def set_threaten_level(self, level):
-        self.threaten_level = level
+        self.projectile_angle = 0
 
     def get_distance(self, t):
-        distance = self.speed * math.cos(self.start_direction) * t
+        distance = abs(self.start_distance - self.speed * math.cos(self.projectile_angle) * t)
         return distance
 
     def get_height(self, t):
-        # 平抛运动下，垂直方向高度随时间变化
-        height = self.start_height + (self.speed * math.sin(self.start_direction) * t) - (
-                0.5 * 9.8 * t ** 2)
+        height = - self.speed * math.sin(self.projectile_angle) * t + 0.5 * 9.8 * t ** 2
         return height
 
     def get_direction(self, t):
-        direction = self.start_direction + math.degrees(
-            math.atan(-9.8 / (self.speed * math.sin(self.start_direction)) * t))
-        return direction
+        if abs(self.start_distance - self.speed * math.cos(self.projectile_angle) * t) > 0:
+            return self.start_direction
+        else:
+            return (self.start_direction + 180) % 360
 
     def get_speed(self, t):
-        speed_horizontal = self.speed * math.cos(math.radians(self.start_direction))
-        speed_vertical = self.speed * math.sin(math.radians(self.start_direction)) - 9.8 * t
-        speed = math.sqrt(speed_horizontal ** 2 + speed_vertical ** 2)
+        if t == 0:
+            return self.start_speed
+        speed_x = math.cos(self.projectile_angle) * self.speed
+        speed_y = abs(9.8 * t - math.sin(self.projectile_angle) * t)
+        speed = math.sqrt(speed_x ** 2 + speed_y ** 2)
         return speed
 
     def get_heading(self, t):
-        speed_horizontal = self.speed * math.cos(math.radians(self.get_direction(t)))
-        speed_vertical = self.speed * math.sin(math.radians(self.get_direction(t)))
-        heading = math.degrees(math.atan2(speed_vertical, speed_horizontal))
-        return heading
+        return self.start_heading
 
 
 class MissileMode3Abstract(MissileModeAbstract, ABC):
     def __init__(self):
         super().__init__()
-
-    def set_threaten_level(self, level):
-        self.threaten_level = level
 
     def get_distance(self, t):
         # 斜边长
@@ -173,11 +156,13 @@ class SubsonicMode1(MissileMode1Abstract):
         self.start_time = 0
         self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.SUBSONIC)
         self.is_alive = True
+        self.mode_name = ModeNames.SUBSONIC_MODE_1
 
     def generate(self):
         pass
 
 
+# 所有的斜抛轨迹都增加一个attribute，抛射角：projectile_angle
 class SubsonicMode2(MissileMode2Abstract):
     def get_threaten_level(self, t):
         return get_missile_threat_level(self.get_distance(t), MissileType.SUBSONIC)
@@ -193,6 +178,15 @@ class SubsonicMode2(MissileMode2Abstract):
         self.start_time = 0
         self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.SUBSONIC)
         self.is_alive = True
+        self.mode_name = ModeNames.SUBSONIC_MODE_2
+        a = 0.5 * 9.8 * self.start_distance ** 2 / self.speed ** 2
+        b = - self.start_distance
+        c = 0.5 * 9.8 * self.start_distance ** 2 / self.speed ** 2 - self.start_height
+        root = solve_quadratic_equation(a, b, c)
+        if root == -1:
+            self.is_alive = False
+        else:
+            self.projectile_angle = root
 
     def generate(self):
         pass
@@ -213,6 +207,7 @@ class SubsonicMode3(MissileMode3Abstract):
         self.start_time = 0
         self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.SUBSONIC)
         self.is_alive = True
+        self.mode_name = ModeNames.SUBSONIC_MODE_3
 
     def generate(self):
         pass
@@ -233,6 +228,7 @@ class SupersonicMode1(MissileMode1Abstract):
         self.start_time = 0
         self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.SUPERSONIC)
         self.is_alive = True
+        self.mode_name = ModeNames.SUPERSONIC_MODE_1
 
     def generate(self):
         pass
@@ -253,6 +249,15 @@ class SupersonicMode2(MissileMode2Abstract):
         self.start_time = 0
         self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.SUPERSONIC)
         self.is_alive = True
+        self.mode_name = ModeNames.SUPERSONIC_MODE_2
+        a = 0.5 * 9.8 * self.start_distance ** 2 / self.speed ** 2
+        b = - self.start_distance
+        c = 0.5 * 9.8 * self.start_distance ** 2 / self.speed ** 2 - self.start_height
+        root = solve_quadratic_equation(a, b, c)
+        if root == -1:
+            self.is_alive = False
+        else:
+            self.projectile_angle = root
 
     def generate(self):
         pass
@@ -273,6 +278,7 @@ class SupersonicMode3(MissileMode3Abstract):
         self.start_time = 0
         self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.SUPERSONIC)
         self.is_alive = True
+        self.mode_name = ModeNames.SUPERSONIC_MODE_3
 
     def generate(self):
         pass
@@ -293,6 +299,7 @@ class HypersonicMode1(MissileMode1Abstract):
         self.start_time = 0
         self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.HYPERSONIC)
         self.is_alive = True
+        self.mode_name = ModeNames.HYPERSONIC_MODE_1
 
     def generate(self):
         pass
@@ -331,6 +338,15 @@ class HypersonicMode2(MissileMode2Abstract):
         self.start_time = 0
         self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.HYPERSONIC)
         self.is_alive = True
+        self.mode_name = ModeNames.HYPERSONIC_MODE_2
+        a = 0.5 * 9.8 * self.start_distance ** 2 / self.speed ** 2
+        b = - self.start_distance
+        c = 0.5 * 9.8 * self.start_distance ** 2 / self.speed ** 2 - self.start_height
+        root = solve_quadratic_equation(a, b, c)
+        if root == -1:
+            self.is_alive = False
+        else:
+            self.projectile_angle = root
 
     def generate(self):
         pass
@@ -379,9 +395,34 @@ class HypersonicMode3(MissileMode3Abstract):
         self.start_time = 0
         self.threaten_level = get_missile_threat_level(self.start_distance, MissileType.HYPERSONIC)
         self.is_alive = True
+        self.mode_name = ModeNames.HYPERSONIC_MODE_3
 
     def generate(self):
         pass
+
+
+class DefaultMissileMode(MissileModeAbstract):
+
+    def generate(self):
+        pass
+
+    def get_distance(self, t):
+        return 0
+
+    def get_height(self, t):
+        return 0
+
+    def get_direction(self, t):
+        return 0
+
+    def get_speed(self, t):
+        return 0
+
+    def get_heading(self, t):
+        return 0
+
+    def get_threaten_level(self, t):
+        return 0
 
 
 subsonic_mode_dic = {
