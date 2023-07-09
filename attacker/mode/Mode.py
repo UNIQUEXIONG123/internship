@@ -22,6 +22,9 @@ class ModeAbstract(ABC):
     def get_mode_name(self):
         return self.mode_name
 
+    def get_is_alive(self):
+        return self.is_alive
+
     @abstractmethod
     def generate(self):
         pass

@@ -34,7 +34,7 @@ class AttackerGenerator:
                             self.notify(attacker)
                         else:
                             # TODO: 如果发现有输出a dead attacker, 代表数据生成不合理，敌方打不到我方
-                            print("a dead attacker")
+                            print("a dead attacker: ", attacker.get_type(), attacker.get_mode_name())
             else:
                 self.notify(attackers)
 

@@ -66,36 +66,48 @@ class AttackerMode4(AbstractAttackerMode):
         pass
 
 
-# 2个亚音速导弹
+# 6个亚音速导弹
 class AttackerMode5(AbstractAttackerMode):
     def generate(self):
         subsonic1 = Subsonic(1)
         subsonic2 = Subsonic(2)
-        return subsonic1, subsonic2
+        subsonic3 = Subsonic(3)
+        subsonic4 = Subsonic(1)
+        subsonic5 = Subsonic(2)
+        subsonic6 = Subsonic(3)
+        return subsonic1, subsonic2, subsonic3, subsonic4, subsonic5, subsonic6
 
     def __init__(self):
         super().__init__()
         pass
 
 
-# 2个超音速导弹
+# 6个超音速导弹
 class AttackerMode6(AbstractAttackerMode):
     def generate(self):
         supersonic1 = Supersonic(1)
         supersonic2 = Supersonic(2)
-        return supersonic1, supersonic2
+        supersonic3 = Supersonic(3)
+        supersonic4 = Supersonic(1)
+        supersonic5 = Supersonic(2)
+        supersonic6 = Supersonic(3)
+        return supersonic1, supersonic2, supersonic3, supersonic4, supersonic5, supersonic6
 
     def __init__(self):
         super().__init__()
         pass
 
 
-# 2个高超音速导弹
+# 6个高超音速导弹
 class AttackerMode7(AbstractAttackerMode):
     def generate(self):
         hypersonic1 = Hypersonic(1)
         hypersonic2 = Hypersonic(2)
-        return hypersonic1, hypersonic2
+        hypersonic3 = Hypersonic(3)
+        hypersonic4 = Hypersonic(1)
+        hypersonic5 = Hypersonic(2)
+        hypersonic6 = Hypersonic(3)
+        return hypersonic1, hypersonic2, hypersonic3, hypersonic4, hypersonic5, hypersonic6
 
     def __init__(self):
         super().__init__()

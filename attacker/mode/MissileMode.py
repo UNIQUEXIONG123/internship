@@ -1,5 +1,5 @@
 import math
-from abc import ABC, abstractmethod
+from abc import ABC
 from enum import Enum
 import random
 from utils.Utils import solve_quadratic_equation, ModeNames
@@ -116,8 +116,8 @@ class SubsonicMode1(MissileMode1Abstract):
 
     def __init__(self):
         super().__init__()
-        self.start_distance = random.gauss(44000, 2000)  # 18-40公里
-        self.start_height = random.gauss(60, 13)
+        self.start_distance = random.gauss(24000, 2000)  # 18-30公里
+        self.start_height = random.gauss(24000, 2000)
         self.start_direction = random.uniform(0, 359)
         self.start_speed = random.gauss(320, 7)  # 300-340
         self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
@@ -138,8 +138,8 @@ class SubsonicMode2(MissileMode2Abstract):
 
     def __init__(self):
         super().__init__()
-        self.start_distance = random.gauss(44000, 2000)  # 18-40公里
-        self.start_height = random.gauss(60, 13)
+        self.start_distance = random.gauss(24000, 2000)  # 28-40公里
+        self.start_height = random.gauss(24000, 2000)
         self.start_direction = random.uniform(0, 359)
         self.start_speed = random.gauss(320, 7)  # 300-340
         self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
@@ -167,8 +167,8 @@ class SubsonicMode3(MissileMode3Abstract):
 
     def __init__(self):
         super().__init__()
-        self.start_distance = random.gauss(44000, 2000)  # 18-40公里
-        self.start_height = random.gauss(60, 13)
+        self.start_distance = random.gauss(24000, 2000)  # 28-40公里
+        self.start_height = random.gauss(24000, 2000)
         self.start_direction = random.uniform(0, 359)
         self.start_speed = random.gauss(320, 7)  # 300-340
         self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
@@ -189,7 +189,7 @@ class SupersonicMode1(MissileMode1Abstract):
     def __init__(self):
         super().__init__()
         self.start_distance = random.gauss(44000, 2000)  # 44公里左右出现导弹，比飞机远一点
-        self.start_height = random.gauss(550, 150)  # 低空飞行
+        self.start_height = random.gauss(30000, 1000)  # 低空飞行
         self.start_direction = random.uniform(0, 359)
         self.start_speed = random.gauss(570, 77)  # 340-800
         self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
@@ -210,7 +210,7 @@ class SupersonicMode2(MissileMode2Abstract):
     def __init__(self):
         super().__init__()
         self.start_distance = random.gauss(44000, 2000)  # 44公里左右出现导弹，比飞机远一点
-        self.start_height = random.gauss(550, 150)  # 低空飞行
+        self.start_height = random.gauss(30000, 1000)  # 低空飞行
         self.start_direction = random.uniform(0, 359)
         self.start_speed = random.gauss(570, 77)  # 340-800
         self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
@@ -239,7 +239,7 @@ class SupersonicMode3(MissileMode3Abstract):
     def __init__(self):
         super().__init__()
         self.start_distance = random.gauss(44000, 2000)  # 44公里左右出现导弹，比飞机远一点
-        self.start_height = random.gauss(550, 150)  # 低空飞行
+        self.start_height = random.gauss(30000, 1000)
         self.start_direction = random.uniform(0, 359)
         self.start_speed = random.gauss(570, 77)  # 340-800
         self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
@@ -260,7 +260,7 @@ class HypersonicMode1(MissileMode1Abstract):
     def __init__(self):
         super().__init__()
         self.start_distance = random.gauss(44000, 2000)  # 44公里左右出现导弹，比飞机远一点
-        self.start_height = random.gauss(4000, 1000)  # 中空飞行
+        self.start_height = random.gauss(40000, 1000)  # 中空飞行
         self.start_direction = random.uniform(0, 359)
         self.start_speed = random.gauss(1300, 167)  # 800-1600
         self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
@@ -281,7 +281,7 @@ class HypersonicMode2(MissileMode2Abstract):
     def __init__(self):
         super().__init__()
         self.start_distance = random.gauss(44000, 2000)  # 44公里左右出现导弹，比飞机远一点
-        self.start_height = random.gauss(4000, 1000)  # 中空飞行
+        self.start_height = random.gauss(40000, 1000)  # 中空飞行
         self.start_direction = random.uniform(0, 359)
         self.start_speed = random.gauss(1300, 167)  # 800-1600
         self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
@@ -335,7 +335,7 @@ class HypersonicMode3(MissileMode3Abstract):
     def __init__(self):
         super().__init__()
         self.start_distance = random.gauss(44000, 2000)  # 44公里左右出现导弹，比飞机远一点
-        self.start_height = random.gauss(4000, 1000)  # 中空飞行
+        self.start_height = random.gauss(40000, 1000)  # 中空飞行
         self.start_direction = random.uniform(0, 359)
         self.start_speed = random.gauss(1300, 167)  # 800-1600
         self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变

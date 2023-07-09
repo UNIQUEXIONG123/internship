@@ -5,7 +5,6 @@ from utils.Utils import AttackerTypes
 
 class Attacker(ABC):
     def __init__(self):
-        self.is_alive = True
         self.type = AttackerTypes.DEFAULT_TYPE
         self.mode = DefaultMode()
 
@@ -65,7 +64,7 @@ class Attacker(ABC):
         返回是否存活
         :return: bool
         """
-        return self.mode.is_alive
+        return self.mode.get_is_alive()
 
     def destroy(self):
         """
