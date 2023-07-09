@@ -90,6 +90,7 @@ class MissileMode1Abstract(MissileModeAbstract, ABC):
 
 
 class MissileMode2Abstract(MissileModeAbstract, ABC):
+    # TODO: FINISH THIS CLASS'S METHODS
     def __init__(self):
         super().__init__()
 

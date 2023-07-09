@@ -12,6 +12,7 @@ class AircraftType(Enum):
 
 
 class PlaneModeAbstract(ABC):
+    # TODO: FINISH THIS CLASS'S METHODS
     def __init__(self):
         pass
 
