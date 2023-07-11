@@ -4,10 +4,11 @@ from utils.Utils import DefenderTypes
 
 class SCNG(Defender):
 
-    def __init__(self, speed, delay, angular_velocity):
+    def __init__(self, speed, delay, angular_velocity,direction):
         super().__init__(speed, delay)
         self.angular_velocity = angular_velocity
         self.type = DefenderTypes.SCNG
+        self.direction = direction
 
     def get_speed(self):
         return self.speed
@@ -20,3 +21,9 @@ class SCNG(Defender):
 
     def get_type(self):
         return self.type
+
+    def get_direction(self):
+        return self.direction
+
+    def set_direction(self,direction):
+        self.direction = direction

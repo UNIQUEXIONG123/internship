@@ -55,6 +55,8 @@ class DefenderGenerator:
         其中speed：m/s
             delay: s
             angular_velocity:rad/s
+            由于没有找到角度速度的值，所以根据一般的角速度4rad/s，考虑炮管的长度认为10°/s可能是比较可行？
+
         """
         # 生成MRAD
         for _ in range(self.animation_map["mrad_animation"]):
@@ -73,16 +75,18 @@ class DefenderGenerator:
         # 生成SCNG
         for _ in range(self.animation_map["scng_animation"]):
             speed = random.gauss(500, 10)  # 使用高斯分布生成速度
-            angular_velocity = random.gauss(0.4, 0.01)  # 使用高斯分布生成角速度
+            angular_velocity = random.gauss(10, 1)  # 使用高斯分布生成角速度
             delay = random.gauss(0.8, 0.02)
-            scng = SCNG(speed, delay, angular_velocity)  # 创建SCNG对象
+            direction = 0
+            scng = SCNG(speed, delay, angular_velocity,direction)  # 创建SCNG对象
             self.allocate_list.append(scng)  # 将SCNG对象添加到分配队列中
         # 生成MC
         for _ in range(self.animation_map["mc_animation"]):
             speed = random.gauss(800, 20)
-            angular_velocity = random.gauss(0.4, 0.01)
+            angular_velocity = random.gauss(10, 1)
             delay = random.gauss(0.8, 0.02)
-            mc = MC(speed, delay, angular_velocity)
+            direction = 0
+            mc = MC(speed, delay, angular_velocity,direction)
             self.allocate_list.append(mc)
 
         self.allocate_list.sort(key=lambda item:item.get_speed())
@@ -95,11 +99,39 @@ class DefenderGenerator:
         """
         print("now prepare launch defender for "+str(attacker.get_type()))
         now_defender = self.allocate_list.pop()
-        print("the defender is "+str(now_defender.get_type())+"speed is "+ str(now_defender.get_speed()))
+        print("the defender is "+str(now_defender.get_type())+" speed is "+ str(now_defender.get_speed()))
         self.launch_list.append(now_defender)
+        dur_time = 0
         if isinstance(now_defender,MRAD) | isinstance(now_defender,SRAD):
-            return now_defender.get_delay()
-        # else:
+            dur_time =  now_defender.get_delay()
+        elif isinstance(now_defender,MC) :
+            defend_direction = now_defender.get_direction()
+            attacker_direction = attacker.get_direction(now_time)
+            abs_direction = abs(defend_direction-attacker_direction)
+            for item in self.allocate_list:
+                if isinstance(item,MC):
+                    item.set_direction(attacker_direction)
+            now_defender.set_direction(attacker_direction)
+            if abs_direction > 180:
+                abs_direction = 360-abs_direction
+            time = abs_direction / now_defender.get_angular_velocity()
+            dur_time = max(time,now_defender.get_delay())
+
+        elif isinstance(now_defender,SCNG):
+            defend_direction = now_defender.get_direction()
+            attacker_direction = attacker.get_direction(now_time)
+            abs_direction = abs(defend_direction - attacker_direction)
+            for item in self.allocate_list:
+                if isinstance(item, SCNG):
+                    item.set_direction(attacker_direction)
+            now_defender.set_direction(attacker_direction)
+            if abs_direction > 180:
+                abs_direction = 360-abs_direction
+            time = abs_direction / now_defender.get_angular_velocity()
+            dur_time = max(time, now_defender.get_delay())
+
+        return dur_time
+
 
     def print_launch(self):
         """
@@ -125,10 +157,10 @@ class DefenderGenerator:
         for defender in self.allocate_list:
             if isinstance(defender, MC):
                 print("MC:speed: " + str(defender.get_speed()) + ", delay: " + str(defender.get_delay()) +
-                      ", angular_velocity: " + str(defender.get_angular_velocity()))
+                      ", angular_velocity: " + str(defender.get_angular_velocity()) + ", now_direction: " + str(defender.get_direction()))
             elif isinstance(defender, SCNG):
                 print("SCNG:speed: " + str(defender.get_speed()) + ", delay: " + str(defender.get_delay()) +
-                      ", angular_velocity: " + str(defender.get_angular_velocity()))
+                      ", angular_velocity: " + str(defender.get_angular_velocity()) + ", now_direction: " + str(defender.get_direction()))
             elif isinstance(defender,MRAD):
                 print("MRAD:speed: " + str(defender.get_speed()) + ", delay: " + str(defender.get_delay()))
             elif isinstance(defender,SRAD):
@@ -143,10 +175,10 @@ class DefenderGeneratorProxy:
         self.defender_generator.notified(attacker)
 
 
-defender_generator = DefenderGenerator(24, 50, 200, 40)
+defender_generator = DefenderGenerator(20, 50, 200, 40)
 defender_generator_proxy = DefenderGeneratorProxy(defender_generator)
 defender_generator.generate()
-defender_generator.print_allocate()
+# defender_generator.print_allocate()
 # # 使用示例
 # mrad_animation = 10
 # srad_animation = 15
