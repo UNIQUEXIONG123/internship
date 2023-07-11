@@ -12,3 +12,6 @@ class MRAD(Defender):
 
     def get_delay(self):
         return self.delay
+
+    def get_type(self):
+        return self.type

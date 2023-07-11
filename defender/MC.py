@@ -16,3 +16,6 @@ class MC(Defender):
 
     def get_angular_velocity(self):
         return self.angular_velocity
+
+    def get_type(self):
+        return self.type
