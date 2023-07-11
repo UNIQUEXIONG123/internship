@@ -51,7 +51,8 @@ class DefenderGenerator:
             delay: s
             angular_velocity:rad/s
         """
-        # TODO:车载导弹也需要考虑转动的时间，多次打击情况下的导弹车不需要转向，决定因素是填充时间
+        # TODO:需要修改整体的逻辑
+
 
         # 生成MRAD
         for _ in range(self.animation_map["mrad_animation"]):

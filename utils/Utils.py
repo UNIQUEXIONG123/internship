@@ -65,3 +65,10 @@ class ModeNames(Enum):
     FIGHTER_MODE = "FighterMode"
     HELICOPTER_MODE = "HelicopterMode"
     TRANSPORT_MODE = "TransportMode"
+
+class DefenderTypes(Enum):
+    DEFAULT_TYPE = "DEFAULT_TYPE"
+    MRAD = "MRAD"
+    SCNG = "SCNG"
+    SRAD = "SRAD"
+    MC = "MC"

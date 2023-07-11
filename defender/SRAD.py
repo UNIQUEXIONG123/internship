@@ -1,11 +1,12 @@
 # "SRAD"： 近距离防空导弹(Small-range air defense missile)
 from defender.Defender import Defender
-
+from utils.Utils import DefenderTypes
 
 class SRAD(Defender):
 
     def __init__(self, speed, delay):
         super().__init__(speed, delay)
+        self.type = DefenderTypes.SRAD
 
     def get_speed(self):
         return self.speed
