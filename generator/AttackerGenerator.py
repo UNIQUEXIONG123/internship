@@ -33,7 +33,6 @@ class AttackerGenerator:
                         if attacker.get_is_alive():   # 增加这个判定是如果导弹射不中，就不要加入准备队列
                             self.notify(attacker)
                         else:
-                            # TODO: 如果发现有输出a dead attacker, 代表数据生成不合理，敌方打不到我方
                             print("a dead attacker: ", attacker.get_type(), attacker.get_mode_name())
             else:
                 self.notify(attackers)

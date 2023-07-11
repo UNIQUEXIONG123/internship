@@ -65,7 +65,6 @@ class DefenderGenerator:
         for _ in range(self.animation_map["srad_animation"]):
             speed = random.gauss(800, 20)  # 使用高斯分布生成速度
             delay = random.gauss(0.8, 0.02)  # 使用高斯分布生成延迟
-
             srad = SRAD(speed, delay)  # 创建SRAD对象
             self.allocate_list.append(srad)  # 将SRAD对象添加到分配队列中
 
@@ -110,6 +109,10 @@ class DefenderGenerator:
             elif isinstance(defender, SCNG):
                 print("SCNG:speed: " + str(defender.get_speed()) + ", delay: " + str(defender.get_delay()) +
                       ", angular_velocity: " + str(defender.get_angular_velocity()))
+            elif isinstance(defender,MRAD):
+                print("MRAD:speed: " + str(defender.get_speed()) + ", delay: " + str(defender.get_delay()))
+            elif isinstance(defender,SRAD):
+                print("SRAD:speed: " + str(defender.get_speed()) + ", delay: " + str(defender.get_delay()))
 
 
 class DefenderGeneratorProxy:
@@ -120,9 +123,11 @@ class DefenderGeneratorProxy:
         self.defender_generator.notified(attacker)
 
 
-defender_generator = DefenderGenerator(24, 120, 200, 400)
+defender_generator = DefenderGenerator(24, 50, 200, 40)
 defender_generator_proxy = DefenderGeneratorProxy(defender_generator)
-
+defender_generator.generate()
+defender_generator.allocate_defenders()
+defender_generator.print_defenders()
 # # 使用示例
 # mrad_animation = 10
 # srad_animation = 15
