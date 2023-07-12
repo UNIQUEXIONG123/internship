@@ -21,5 +21,5 @@ if __name__ == '__main__':
             print(item.get_type(), item.get_mode_name(), item.get_distance(0), item.get_threaten_level(0))
         if len(allocate_list)!=0:
             now_time = past_time + defender_generator.launch_defenders(item,past_time)
-            print(past_time)
+            print('now time is '+str(now_time))
 
