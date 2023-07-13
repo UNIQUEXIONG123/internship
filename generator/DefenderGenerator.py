@@ -1,5 +1,5 @@
 import random
-from typing import List
+from typing import List, Tuple
 
 from attacker.Attacker import Attacker
 from defender.Defender import Defender
@@ -19,10 +19,15 @@ class DefenderGenerator:
     def __init__(self, mrad_animation, srad_animation, scng_animation, mc_animation):
         # 准备队列
         self.prepare_list: List[Attacker] = []
-        # 分配队列
+        # 分配队列，用于分配防御武器
         self.allocate_list: List[Defender] = []
-        # 发射队列
-        self.launch_list: List[Defender] = []
+        # # 发射队列
+        # self.launch_list: List[Attacker] = []
+        # # 预计拦截时间
+        # self.estimate_list: List[int] = []
+
+        # 把发射弹药和预计拦截时间改成pair python中使用元组存放
+        self.destroy_list: List[Tuple[Attacker,int]] = []
         # 记录弹药量
         self.animation_map = {
             "mrad_animation": mrad_animation,
@@ -33,12 +38,31 @@ class DefenderGenerator:
 
     def get_prepare_list(self) -> List[Attacker]:
         return self.prepare_list
+    def add_prepare_list(self, attacker: Attacker):
+        self.prepare_list.append(attacker)
 
     def get_allocate_list(self) -> List[Defender]:
         return self.allocate_list
 
-    def add_prepare_list(self, attacker: Attacker):
-        self.prepare_list.append(attacker)
+    # def get_launch_list(self) -> List[Attacker]:
+    #     return self.launch_list
+    # def add_launch_list(self,attacker: Attacker):
+    #     self.launch_list.append(attacker)
+    #
+    # def get_estimate_list(self) -> List[int]:
+    #     return self.estimate_list
+    # def add_estimate_list(self,estimate_time: int):
+    #     self.estimate_list.append(estimate_time)
+    #     self.estimate_list.sort()
+
+    def get_destroy_list(self) -> List[Tuple[Attacker, int]]:
+        return self.destroy_list
+    def add_destroy_list(self, attacker: Attacker, interception_time: int):
+        pair = (attacker, interception_time)
+        self.destroy_list.append(pair)
+        self.destroy_list.sort(key=lambda x: x[1])
+
+
 
     def notified(self, attacker):
         """
@@ -93,17 +117,20 @@ class DefenderGenerator:
 
     def launch_defenders(self,attacker:Attacker,now_time:int):
         """
-        将防御器材从分配队列移到发射队列
+        将防御器材进行分配发射的时间
         需要返回一个所需时间
         return:time
         """
-        print("now prepare launch defender for "+str(attacker.get_type()))
+        print("now prepare launch defender for "+str(attacker.get_type())+" the distance is "+str(attacker.get_distance(now_time)))
         now_defender = self.allocate_list.pop()
         print("the defender is "+str(now_defender.get_type())+" speed is "+ str(now_defender.get_speed()))
-        self.launch_list.append(now_defender)
         dur_time = 0
-        if isinstance(now_defender,MRAD) | isinstance(now_defender,SRAD):
+        if isinstance(now_defender,MRAD):
             dur_time =  now_defender.get_delay()
+            self.animation_map["mrad_animation"] -= 1
+        elif isinstance(now_defender,SRAD):
+            dur_time = now_defender.get_delay()
+            self.animation_map["srad_animation"] -= 1
         elif isinstance(now_defender,MC) :
             defend_direction = now_defender.get_direction()
             attacker_direction = attacker.get_direction(now_time)
@@ -115,6 +142,7 @@ class DefenderGenerator:
             if abs_direction > 180:
                 abs_direction = 360-abs_direction
             time = abs_direction / now_defender.get_angular_velocity()
+            self.animation_map["mc_animation"]-=1
             dur_time = max(time,now_defender.get_delay())
 
         elif isinstance(now_defender,SCNG):
@@ -128,27 +156,31 @@ class DefenderGenerator:
             if abs_direction > 180:
                 abs_direction = 360-abs_direction
             time = abs_direction / now_defender.get_angular_velocity()
+            self.animation_map["scng_animation"] -= 1
             dur_time = max(time, now_defender.get_delay())
 
-        return dur_time
 
+        except_time = 0
+        # !TODO 预期时间
+        return dur_time,except_time
+    # def get_except_time(self):
 
-    def print_launch(self):
-        """
-        打印出发射队列中的器材信息
-        :return:
-        """
-        for defender in self.launch_list:
-            if isinstance(defender, MC):
-                print("MC:speed: " + str(defender.get_speed()) + ", delay: " + str(defender.get_delay()) +
-                      ", angular_velocity: " + str(defender.get_angular_velocity()))
-            elif isinstance(defender, SCNG):
-                print("SCNG:speed: " + str(defender.get_speed()) + ", delay: " + str(defender.get_delay()) +
-                      ", angular_velocity: " + str(defender.get_angular_velocity()))
-            elif isinstance(defender, MRAD):
-                print("MRAD:speed: " + str(defender.get_speed()) + ", delay: " + str(defender.get_delay()))
-            elif isinstance(defender, SRAD):
-                print("SRAD:speed: " + str(defender.get_speed()) + ", delay: " + str(defender.get_delay()))
+    # def print_launch(self):
+    #     """
+    #     打印出发射队列中的器材信息
+    #     :return:
+    #     """
+    #     for defender in self.launch_list:
+    #         if isinstance(defender, MC):
+    #             print("MC:speed: " + str(defender.get_speed()) + ", delay: " + str(defender.get_delay()) +
+    #                   ", angular_velocity: " + str(defender.get_angular_velocity()))
+    #         elif isinstance(defender, SCNG):
+    #             print("SCNG:speed: " + str(defender.get_speed()) + ", delay: " + str(defender.get_delay()) +
+    #                   ", angular_velocity: " + str(defender.get_angular_velocity()))
+    #         elif isinstance(defender, MRAD):
+    #             print("MRAD:speed: " + str(defender.get_speed()) + ", delay: " + str(defender.get_delay()))
+    #         elif isinstance(defender, SRAD):
+    #             print("SRAD:speed: " + str(defender.get_speed()) + ", delay: " + str(defender.get_delay()))
 
     def print_allocate(self):
         """
