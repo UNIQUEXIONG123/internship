@@ -246,7 +246,7 @@ class DefenderGeneratorProxy:
         self.defender_generator.notified(attacker)
 
 
-defender_generator = DefenderGenerator(1, 2, 10, 4)
+defender_generator = DefenderGenerator(5, 10, 20, 15)
 defender_generator_proxy = DefenderGeneratorProxy(defender_generator)
 defender_generator.generate()
 
