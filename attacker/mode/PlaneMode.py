@@ -58,7 +58,7 @@ class BomberMode(BomberModeAbstract):
     def __init__(self):
         super().__init__()
         self.start_distance = random.gauss(29000, 3670)  # 18-40公里
-        self.start_height = random.gauss(4000, 1000)
+        self.start_height = random.gauss(9000, 1000)
         self.start_direction = random.uniform(0, 359)
         self.start_speed = random.gauss(335, 38)
         self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
@@ -127,7 +127,7 @@ class FighterMode(FighterModeAbstract):
     def __init__(self):
         super().__init__()
         self.start_distance = random.gauss(29000, 3670)
-        self.start_height = random.gauss(550, 150)
+        self.start_height = random.gauss(5500, 500)
         self.start_direction = random.uniform(0, 359)
         self.start_speed = random.gauss(600, 67)
         self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变
@@ -170,7 +170,7 @@ class HelicopterMode(HelicopterAbstract):
     def __init__(self):
         super().__init__()
         self.start_distance = random.gauss(20000, 3333)  # 路径和轰炸机一样，但是更低
-        self.start_height = random.gauss(11.5, 2.8)
+        self.start_height = random.gauss(500, 20)
         self.start_direction = random.uniform(0, 359)
         self.start_speed = random.gauss(95, 8)
         self.speed = random.gauss(self.start_speed, 1)  # 有一米的误差，这个字段表示在飞行过程中速度保持不变

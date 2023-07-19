@@ -1,6 +1,9 @@
+import math
 import random
 from typing import List, Tuple
 
+import numpy as np
+from scipy.optimize import root_scalar
 from attacker.Attacker import Attacker
 from defender.Defender import Defender
 from defender.MC import MC
@@ -60,7 +63,7 @@ class DefenderGenerator:
     def add_destroy_list(self, attacker: Attacker, interception_time: int):
         pair = (attacker, interception_time)
         self.destroy_list.append(pair)
-        self.destroy_list.sort(key=lambda x: x[1])
+        self.destroy_list.sort(key=lambda x: x[1],reverse=True)
 
 
 
@@ -114,6 +117,8 @@ class DefenderGenerator:
             self.allocate_list.append(mc)
 
         self.allocate_list.sort(key=lambda item:item.get_speed())
+    # def get_attacker_model(self,attacker:Attacker):
+    #     return attacker.get_mode_name()
 
     def launch_defenders(self,attacker:Attacker,now_time:int):
         """
@@ -121,6 +126,7 @@ class DefenderGenerator:
         需要返回一个所需时间
         return:time
         """
+        # self.prepare_list.pop()
         print("now prepare launch defender for "+str(attacker.get_type())+" the distance is "+str(attacker.get_distance(now_time)))
         now_defender = self.allocate_list.pop()
         print("the defender is "+str(now_defender.get_type())+" speed is "+ str(now_defender.get_speed()))
@@ -162,6 +168,39 @@ class DefenderGenerator:
 
         except_time = 0
         # !TODO 预期时间
+        attacker_mode = attacker.get_mode_name()
+        print(attacker_mode)
+        if "MODE_3" in str(attacker_mode):
+            print("平抛飞行模型")
+            # v0 = attacker.get_speed(now_time)
+            # v1 = now_defender.get_speed()
+            # h0 = attacker.get_height(now_time)
+            # d0 = attacker.get_distance(now_time)
+            # theta0 = attacker.get_direction(now_time) # 攻击武器的角度
+            except_time = calculate_encounter_time(attacker, now_defender,now_time)
+            # print("相遇时间：", except_time, "秒")
+        if "MODE_2" in str(attacker_mode) or "FIGHTER_MODE" in str(attacker_mode) or "HELICOPTER_MODE" in str(attacker_mode):
+            print("俯冲飞行模型")
+            v0 = attacker.get_speed(now_time)
+            v1 = now_defender.get_speed()
+            h0 = attacker.get_height(now_time)
+            d0 = attacker.get_distance(now_time)
+            except_time = math.sqrt((h0**2 + d0**2)/(v0+v1)**2)
+            # print("相遇时间：", except_time, "秒")
+        if "MODE_1" in str(attacker_mode):
+            print("直线飞行模型")
+            v0 = attacker.get_speed(now_time)
+            v1 = now_defender.get_speed()
+            h0 = attacker.get_height(now_time)
+            except_time = h0/(v0+v1)
+            # print("相遇时间：", except_time, "秒")
+        if "BOMBER_MODE" in str(attacker_mode) or "TRANSPORT_MODE" in str(attacker_mode):
+            print("高空直线飞行模型")
+            v1 = now_defender.get_speed()
+            h0 = attacker.get_height(now_time)
+            d0 = attacker.get_distance(now_time)
+            except_time = math.sqrt(d0**2 + h0**2)/v1
+        print("相遇时间：", except_time+now_time, "秒")
         return dur_time,except_time
     # def get_except_time(self):
 
@@ -207,9 +246,119 @@ class DefenderGeneratorProxy:
         self.defender_generator.notified(attacker)
 
 
-defender_generator = DefenderGenerator(20, 50, 200, 40)
+defender_generator = DefenderGenerator(1, 2, 10, 4)
 defender_generator_proxy = DefenderGeneratorProxy(defender_generator)
 defender_generator.generate()
+
+
+def calculate_encounter_time(attacker, now_defender, now_time):
+        # 定义抛物线的运动方程
+        # def projectile_motion(time):
+        #     x = v0 * time * math.cos(theta0)
+        #     y = h0 + v0 * time * math.sin(theta0) - (1 / 2) * g * time ** 2
+        #     return x, y
+        #
+        # # 直线的运动方程
+        # def linear_motion(time):
+        #     d = v1 * time
+        #     return d
+        #
+        # # 计算抛物线运动的水平位移和直线运动的位移之间的误差
+        # def error_function(time):
+        #     projectile_x, _ = projectile_motion(time)
+        #     linear_d = linear_motion(time)
+        #     return projectile_x - linear_d
+        #
+        # # 使用牛顿迭代法逼近相遇时间的根
+        # def newton_raphson():
+        #     guess = 100  # 初始猜测值
+        #     epsilon = 0.0000001  # 设置精度
+        #     max_iterations = 10000  # 设置最大迭代次数
+        #     for _ in range(max_iterations):
+        #         error = error_function(guess)
+        #         if abs(error) < epsilon:
+        #             return guess
+        #         guess = guess - error / derivative(guess)
+        #     return None
+        #
+        # def binary_search():
+        #     left = 0
+        #     right = 1000  # 设置一个合理的上限时间
+        #     epsilon = 0.0000001  # 设置精度
+        #     while abs(left - right) > epsilon:
+        #         mid = (left + right) / 2
+        #         error = error_function(mid)
+        #         if error < 0:
+        #             left = mid
+        #         else:
+        #             right = mid
+        #     return (left + right) / 2
+        #
+        # # 计算抛物线运动的水平位移和时间的导数
+        # def derivative(time):
+        #     return v0 * math.cos(theta0) - g * time
+
+        # 获取初始参数
+        v0 = attacker.get_speed(now_time)
+        v1 = now_defender.get_speed()
+        theta0 = math.radians(attacker.get_direction(now_time))
+        h0 = attacker.get_height(now_time)
+        d0 = attacker.get_distance(now_time)
+        g = 9.8  # 重力加速度
+        def f(x,a,b,c,d,e):
+            return a*x**4 + b*x**3 + c*x**2+d*x+e
+        a = 1/4*g**2
+        b = -g*v0
+        c = v0*math.cos(theta0)**2+v0**2-g*h0-v1**2
+        d = 2*h0*v0-2*d0*v0*math.cos(theta0)
+        e = h0**2+d0**2
+        # 使用牛顿迭代法逼近相遇时间的根
+        # encounter_time = newton_raphson()
+        # 使用SciPy的root_scalar函数来求解方程
+        # result = root_scalar(f, args=(a, b, c, d, e), method='brentq', bracket=[-100000, 10000000])
+        # if result.converged:
+        #     root = result.root
+        #     print("方程的根为:", root)
+        # else:
+        #     print("未找到方程的根，或者求解过程未收敛。")
+        # def solve_quartic_equation(a, b, c, d, e):
+        #     coefficients = [a, b, c, d, e]
+        #     roots = np.roots(coefficients)
+        #     # real_positive_roots = [root.real for root in roots if np.isreal(root) and root > 0]
+        #     real_positive_roots = [root.real for root in roots if np.isreal(root) and root > 0]
+        #     return real_positive_roots
+        #
+        # # 解一元四次方程
+        # roots = solve_quartic_equation(a, b, c, d, e)
+        #
+        # if len(roots) == 0:
+        #     print("无法击落")
+        # else:
+        #     print("方程的实数根为:", roots)
+        # return roots
+        def solve_quartic_equation(a, b, c, d, e):
+            coefficients = [a, b, c, d, e]
+            roots = np.roots(coefficients)
+            real_positive_roots = [root.real for root in roots if np.isreal(root) and root > 0]
+            return real_positive_roots
+
+        # 示例
+        a = 1 / 4 * g ** 2
+        b = -g * v0
+        c = v0 * np.cos(theta0) ** 2 + v0 ** 2 - g * h0 - v1 ** 2
+        d = 2 * h0 * v0 - 2 * d0 * v0 * np.cos(theta0)
+        e = h0 ** 2 + d0 ** 2
+
+        # 解一元四次方程并筛选大于零的实数根
+        positive_roots = solve_quartic_equation(a, b, c, d, e)
+        min_positive_root = float("inf")  # 设置初始值为较大的正无穷大
+        if len(positive_roots) == 0:
+            print("无法击落")
+        else:
+            # print("方程的实数根为:", positive_roots)
+            min_positive_root = min(positive_roots)
+            # print("未来的相遇时间：", min_positive_root)
+        return min_positive_root
 # defender_generator.print_allocate()
 # # 使用示例
 # mrad_animation = 10
