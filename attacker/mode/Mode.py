@@ -14,7 +14,7 @@ class ModeAbstract(ABC):
         self.start_time = 0
         self.threaten_level = 0
         self.is_alive = True
-        self.mode_name = ModeNames.DEFAULT_MODE_NAME  # 认为是一个默认的，没什么用
+        self.mode_name = ModeNames.DEFAULT_MODE_NAME
 
     def set_threaten_level(self, level):
         self.threaten_level = level
@@ -52,7 +52,6 @@ class ModeAbstract(ABC):
     @abstractmethod
     def get_threaten_level(self, t):
         pass
-
 
 # 默认的模式，只是用来为抽象类提供api
 class DefaultMode(ModeAbstract):

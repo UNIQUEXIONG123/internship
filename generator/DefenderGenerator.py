@@ -30,7 +30,7 @@ class DefenderGenerator:
         # self.estimate_list: List[int] = []
 
         # 把发射弹药和预计拦截时间改成pair python中使用元组存放
-        self.destroy_list: List[Tuple[Attacker,int]] = []
+        self.destroy_list: List[Tuple[Attacker,int,int]] = []
         # 记录弹药量
         self.animation_map = {
             "mrad_animation": mrad_animation,
@@ -60,8 +60,8 @@ class DefenderGenerator:
 
     def get_destroy_list(self) -> List[Tuple[Attacker, int]]:
         return self.destroy_list
-    def add_destroy_list(self, attacker: Attacker, interception_time: int):
-        pair = (attacker, interception_time)
+    def add_destroy_list(self, attacker: Attacker, interception_time: int,destory_random: int):
+        pair = (attacker, interception_time,destory_random)
         self.destroy_list.append(pair)
         self.destroy_list.sort(key=lambda x: x[1],reverse=True)
 
@@ -165,7 +165,7 @@ class DefenderGenerator:
             self.animation_map["scng_animation"] -= 1
             dur_time = max(time, now_defender.get_delay())
 
-
+        destory_random = calculate_random(attacker,now_defender)
         except_time = 0
         # !TODO 预期时间
         attacker_mode = attacker.get_mode_name()
@@ -201,7 +201,7 @@ class DefenderGenerator:
             d0 = attacker.get_distance(now_time)
             except_time = math.sqrt(d0**2 + h0**2)/v1
         print("相遇时间：", except_time+now_time, "秒")
-        return dur_time,except_time
+        return dur_time,except_time,destory_random
     # def get_except_time(self):
 
     # def print_launch(self):
@@ -246,58 +246,77 @@ class DefenderGeneratorProxy:
         self.defender_generator.notified(attacker)
 
 
-defender_generator = DefenderGenerator(5, 10, 20, 15)
+defender_generator = DefenderGenerator(8, 10, 20, 15)
 defender_generator_proxy = DefenderGeneratorProxy(defender_generator)
 defender_generator.generate()
 
 
-def calculate_encounter_time(attacker, now_defender, now_time):
-        # 定义抛物线的运动方程
-        # def projectile_motion(time):
-        #     x = v0 * time * math.cos(theta0)
-        #     y = h0 + v0 * time * math.sin(theta0) - (1 / 2) * g * time ** 2
-        #     return x, y
-        #
-        # # 直线的运动方程
-        # def linear_motion(time):
-        #     d = v1 * time
-        #     return d
-        #
-        # # 计算抛物线运动的水平位移和直线运动的位移之间的误差
-        # def error_function(time):
-        #     projectile_x, _ = projectile_motion(time)
-        #     linear_d = linear_motion(time)
-        #     return projectile_x - linear_d
-        #
-        # # 使用牛顿迭代法逼近相遇时间的根
-        # def newton_raphson():
-        #     guess = 100  # 初始猜测值
-        #     epsilon = 0.0000001  # 设置精度
-        #     max_iterations = 10000  # 设置最大迭代次数
-        #     for _ in range(max_iterations):
-        #         error = error_function(guess)
-        #         if abs(error) < epsilon:
-        #             return guess
-        #         guess = guess - error / derivative(guess)
-        #     return None
-        #
-        # def binary_search():
-        #     left = 0
-        #     right = 1000  # 设置一个合理的上限时间
-        #     epsilon = 0.0000001  # 设置精度
-        #     while abs(left - right) > epsilon:
-        #         mid = (left + right) / 2
-        #         error = error_function(mid)
-        #         if error < 0:
-        #             left = mid
-        #         else:
-        #             right = mid
-        #     return (left + right) / 2
-        #
-        # # 计算抛物线运动的水平位移和时间的导数
-        # def derivative(time):
-        #     return v0 * math.cos(theta0) - g * time
+def sigmoid(x):
+    return 1 / (1 + math.exp(-x))
 
+def calculate_random(attacker, now_defender):
+    # 初始的基准随机值为0.55
+    base_random = 0.55
+    attacker_mode = attacker.get_mode_name()  # 获取攻击方的模式名称
+    defender_mode = now_defender.get_type()   # 获取防御方的类型
+
+    # # 打印攻击方的模式名称和防御方的类型
+    # print(attacker_mode)
+    # print(defender_mode)
+
+    # 根据防御方类型施加影响
+    if "MRAD" in str(defender_mode):
+        # 如果防御方类型包含"MRAD"，则在基准随机值上增加一个在[0, 0.25]区间内的随机值
+        base_random += random.uniform(0, 0.25)
+
+    if "MC" in str(defender_mode):
+        # 如果防御方类型包含"MC"，则在基准随机值上增加一个在[0, 0.15]区间内的随机值
+        base_random += random.uniform(0, 0.15)
+
+    if "SCNG" in str(defender_mode):
+        # 如果防御方类型包含"SCNG"，则在基准随机值上增加一个在[0, 0.1]区间内的随机值
+        base_random += random.uniform(0, 0.1)
+
+    if "SCAD" in str(defender_mode):
+        # 如果防御方类型包含"SCAD"，则在基准随机值上增加一个在[0, 0.15]区间内的随机值
+        base_random += random.uniform(0, 0.15)
+
+    # 根据攻击方模式施加影响
+    if "MODE_1" in str(attacker_mode):
+        # 如果攻击方模式包含"MODE_1"，则在基准随机值上减去一个在[0, 0.05]区间内的随机值
+        base_random -= random.uniform(0, 0.05)
+
+    if "MODE_2" in str(attacker_mode):
+        # 如果攻击方模式包含"MODE_2"，则在基准随机值上减去0.15
+        base_random -= 0.15
+
+    if "MODE_3" in str(attacker_mode):
+        # 如果攻击方模式包含"MODE_3"，则在基准随机值上减去一个在[0, 0.05]区间内的随机值
+        base_random -= random.uniform(0, 0.05)
+
+    if "BOMBER_MODE" in str(attacker_mode):
+        # 如果攻击方模式包含"BOMBER_MODE"，则在基准随机值上减去一个在[0, 0.15]区间内的随机值
+        base_random -= random.uniform(0, 0.15)
+
+    if "TRANSPORT_MODE" in str(attacker_mode):
+        # 如果攻击方模式包含"TRANSPORT_MODE"，则在基准随机值上减去一个在[0, 0.1]区间内的随机值
+        base_random -= random.uniform(0, 0.1)
+
+    if "FIGHTER_MODE" in str(attacker_mode):
+        # 如果攻击方模式包含"FIGHTER_MODE"，则在基准随机值上减去一个在[0, 0.08]区间内的随机值
+        base_random -= random.uniform(0, 0.08)
+
+    if "HELICOPTER_MODE" in str(attacker_mode):
+        # 如果攻击方模式包含"HELICOPTER_MODE"，则在基准随机值上减去一个在[0, 0.06]区间内的随机值
+        base_random -= random.uniform(0, 0.06)
+
+    # 将调整后的 base_random 映射到0或者1
+    if base_random > 0.5:
+        return 1
+    else:
+        return 0
+
+def calculate_encounter_time(attacker, now_defender, now_time):
         # 获取初始参数
         v0 = attacker.get_speed(now_time)
         v1 = now_defender.get_speed()
@@ -312,30 +331,6 @@ def calculate_encounter_time(attacker, now_defender, now_time):
         c = v0*math.cos(theta0)**2+v0**2-g*h0-v1**2
         d = 2*h0*v0-2*d0*v0*math.cos(theta0)
         e = h0**2+d0**2
-        # 使用牛顿迭代法逼近相遇时间的根
-        # encounter_time = newton_raphson()
-        # 使用SciPy的root_scalar函数来求解方程
-        # result = root_scalar(f, args=(a, b, c, d, e), method='brentq', bracket=[-100000, 10000000])
-        # if result.converged:
-        #     root = result.root
-        #     print("方程的根为:", root)
-        # else:
-        #     print("未找到方程的根，或者求解过程未收敛。")
-        # def solve_quartic_equation(a, b, c, d, e):
-        #     coefficients = [a, b, c, d, e]
-        #     roots = np.roots(coefficients)
-        #     # real_positive_roots = [root.real for root in roots if np.isreal(root) and root > 0]
-        #     real_positive_roots = [root.real for root in roots if np.isreal(root) and root > 0]
-        #     return real_positive_roots
-        #
-        # # 解一元四次方程
-        # roots = solve_quartic_equation(a, b, c, d, e)
-        #
-        # if len(roots) == 0:
-        #     print("无法击落")
-        # else:
-        #     print("方程的实数根为:", roots)
-        # return roots
         def solve_quartic_equation(a, b, c, d, e):
             coefficients = [a, b, c, d, e]
             roots = np.roots(coefficients)
@@ -355,9 +350,7 @@ def calculate_encounter_time(attacker, now_defender, now_time):
         if len(positive_roots) == 0:
             print("无法击落")
         else:
-            # print("方程的实数根为:", positive_roots)
             min_positive_root = min(positive_roots)
-            # print("未来的相遇时间：", min_positive_root)
         return min_positive_root
 # defender_generator.print_allocate()
 # # 使用示例

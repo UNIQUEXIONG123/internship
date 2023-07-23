@@ -13,7 +13,7 @@ if __name__ == '__main__':
     allocate_list : List[Defender] = defender_generator.get_allocate_list()
     # launch_list : List[Attacker] = defender_generator.get_launch_list()
     # estimate_list: List[int] = defender_generator.get_estimate_list()
-    destory_list: List[Tuple[Attacker,int]] = defender_generator.get_destroy_list()
+    destory_list: List[Tuple[Attacker,int,int]] = defender_generator.get_destroy_list()
     print('length', len(prepare_list))
     print('length', len(allocate_list))
     # prepare_list.sort(key=lambda item:item.get_threaten_level(0),reverse=True)
@@ -32,13 +32,12 @@ if __name__ == '__main__':
                 if isinstance(item, Attacker):
                     print(item.get_type(), item.get_mode_name(), item.get_distance(now_time), item.get_threaten_level(now_time))
                 if len(allocate_list)!=0:
-                    temp_time,except_time = defender_generator.launch_defenders(item,now_time)
+                    temp_time,except_time,destory_random = defender_generator.launch_defenders(item,now_time)
                     dur_time = max(dur_time,temp_time)
                     #移除该导弹
-                    defender_generator.add_destroy_list(item ,except_time+now_time)
+                    defender_generator.add_destroy_list(item ,except_time+now_time,destory_random)
                     # launch_list.append(item)
                 if len(allocate_list)==0:
-                    print(f'缺失弹药，无法分配,我方目标被摧毁')
                     flag = False
                     break
             if flag == False:
@@ -53,14 +52,7 @@ if __name__ == '__main__':
             if now_time == float('inf'):
                 continue
             print(f'判断在 {now_time:.7f} 时刻，目标对象 {destory_item[0].get_type()} 是否被摧毁')
-            probability_of_one = 0.6
-                # 生成[0, 1)之间的随机数
-            random_number = np.random.rand()
-                # 根据概率映射到0或1
-            if random_number < probability_of_one:
-                random_number = 1
-            else:
-                random_number = 0
+            random_number = destory_item[2]
             # 确保随机数在0和1之
             # # !TODO:判断是否被摧毁
             if random_number == 0:
@@ -73,5 +65,7 @@ if __name__ == '__main__':
                 print(f'已经完成了摧毁')
     if flag == True:
         print(f'成功进行了防御')
+    else:
+        print(f'缺失弹药，无法分配,我方目标被摧毁')
 
 
